@@ -1,0 +1,82 @@
+
+/************************************************************************/
+/* DUNE by NPDS                                                         */
+/*                                                                      */
+/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/*                                                                      */
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/*                                                                      */
+/* Module npds_annonces 3.0                                             */
+/*                                                                      */
+/*                                                                      */
+/* Basé sur gadjo_annonces v 1.2 - Adaptation 2008 par Jireck et lopez  */
+/* MAJ conformité XHTML pour REvolution 10.02 par jpb/phr en mars 2010  */
+/* MAJ Dev - 2011                                                       */
+/* Changement de nom du module version Rev16 par jpb/phr janv 2017      */
+/************************************************************************/
+
+
+----------------------------------------------------------------------
+Support sur http://modules.npds.org
+----------------------------------------------------------------------
+
+Module simple de petites annonces interfacé et complètement intégré au portail NPDS.
+
+Fonctionalités:
+  Inscription comme membre du site obligatoire pour les visiteurs avant de pouvoir déposer une annonce
+  Les utilisateurs peuvent modifier/supprimer leurs annonces
+  Validité des annonces paramétrable (nombre de fois 30 jours) par l'administrateur
+  Possibilité d'avoir plusieurs catégories et sous-catégories d'annonces
+  Administration des annonces depuis le module Plugins du menu administration de NPDS (npds_annonces)
+  Deux tables sql seulement (g_categories, g_annonces) leur création est automatique à la première connexion au  plugin d'administration
+  Moteur de recherche intégré (spécifique aux annonces)
+  Récupération des informations utilisateurs inscrits
+  Envoi d'un mail à l'administrateur à chaque dépot d'annonces
+  Et enfin la validation des annonces avant parution
+
+----------------------------------------------------------------------
+Installation
+----------------------------------------------------------------------
+Automatique via Module-Install (Admin/Gestion installation des modules)
+
+----------------------------------------------------------------------
+Lancement :
+----------------------------------------------------------------------
+   Via une url de type : http://votre_site/modules.php?ModPath=npds_annonces&ModStart=index
+
+----------------------------------------------------------------------
+Administration :
+----------------------------------------------------------------------
+Via l'administration des Plugins - npds_annonce (les tables seront crées automatiquement à la 1ere connexion)
+
+Le fichier annonce.conf.php permet de configurer :
+   - nom des tables,
+   - utilisation des editeurs
+   - affichage de la zone de prix
+
+  3 fichiers .html.option (intro, corps et pied) permettent de personnaliser votre système d'annonces (message d'intro, conditions générales ...)
+
+  Il est possible d'utiliser simultanement plusieur module npds_annonces sur un même site.
+ 
+ Variables paramétrables :
+   $obsol => nombre de fois trente jours avant destruction auto des annonces (les annonces modifiées par les utilisateurs ou l'administrateur, repartent comme de nouvelles annonces, les utilisateurs ne sont pas détruits, ils restent enregistrés comme utilisateurs du site).
+   
+   $max => nombre maxi d'annonces affichées par page
+
+   Divers messages peuvent être modifiés
+
+----------------------------------------------------------------------
+Deux Addons pour ce module, la possiblité d'afficher dans un bloc (de droite, ou de gauche)
+----------------------------------------------------------------------
+ Bloc1.php : un bloc complet
+ Bloc2.php : un bloc simple
+
+Installation :
+ Ajouter un bloc (dans l'admin des blocs) le titre n'a pas d'importance, (affichage auto) contenu :  
+ include#modules/npds_annonces/bloc1.php   ou
+ include#modules/npds_annonces/bloc2.php   ou
+
+A noter que lors d'une installation automatique, un bloc annonces (bloc1.php) est créé
+---------------------------------------------------------------------
