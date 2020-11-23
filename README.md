@@ -1,5 +1,5 @@
 # npds_annonces
-Modules annonces pour NPDS
+Modules annonces pour le CMS NPDS
 
 Module simple de petites annonces interfacé et complètement intégré au portail NPDS.
 
