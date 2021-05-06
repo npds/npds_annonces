@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -46,22 +46,22 @@ $sql = array("CREATE TABLE ".$NPDS_Prefix."g_annonces (
   id bigint(20) NOT NULL auto_increment,
   id_user bigint(20) DEFAULT NULL,
   id_cat mediumint(11) DEFAULT NULL,
-  tel varchar(20) NOT NULL DEFAULT '',
-  tel_2 varchar(20) NOT NULL DEFAULT '',
-  code varchar(5) NOT NULL DEFAULT '',
-  ville varchar(40) NOT NULL DEFAULT '',
-  date varchar(20) NOT NULL DEFAULT '',
-  text mediumtext NOT NULL,
+  tel varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  tel_2 varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  code varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  ville varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  date varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  text mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   en_ligne tinyint(1) NOT NULL DEFAULT '0',
   prix decimal(10,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (id)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;",
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
 "CREATE TABLE ".$NPDS_Prefix."g_categories (
   id_cat mediumint(11) NOT NULL auto_increment,
   id_cat2 mediumint(11) NOT NULL DEFAULT '0',
-  categorie varchar(30) NOT NULL DEFAULT '',
+  categorie varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (id_cat)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
 #autodoc $blocs = array(array(""), array(""), array(""), array(""), array(""), array(""), array(""), array(""), array(""))
 #autodoc                titre      contenu    membre     groupe     index      rétention  actif      aide       description

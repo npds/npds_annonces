@@ -82,7 +82,7 @@
 
    //fonction de redimensionnement de l'image
    $img_src = "modules/$ModPath/images/".$quidam['uname']."_original.jpg";
-   $img_dest = "modules/$ModPath/images/".$quidam['uname']."_".mktime().".jpg";
+   $img_dest = "modules/$ModPath/images/".$quidam['uname']."_".time().".jpg";
    settype($choix,'string');
    if ($choix =="Mini") {
       $dst_w = 400;
