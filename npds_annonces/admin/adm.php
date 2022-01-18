@@ -2,13 +2,13 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* Module npds_annonces 3.0                                             */
+/* Module npds_annonces 3.1                                             */
 /*                                                                      */
 /*                                                                      */
 /* Basé sur gadjo_annonces v 1.2 - Adaptation 2008 par Jireck et lopez  */
@@ -76,9 +76,9 @@ if (!array_search($table_annonces,$tables)) {
    <div id="adm_men">';
    echo aff_langue($mess_acc);
    echo '
-      <p class="lead">'.ann_translate("Annonces en ligne").'<span class="badge badge-success float-right">'.$num_ann_total.'</span></p>
-      <p class="lead">'.ann_translate("Annonces à valider").'<span class="badge badge-danger float-right">'.$num_ann_apub_total.'</span></p>
-      <p class="lead">'.ann_translate("Annonces archivées").'<span class="badge badge-secondary float-right">'.$num_ann_archive_total.'</span></p>
+      <p class="lead">'.ann_translate("Annonces en ligne").'<span class="badge bg-success float-end">'.$num_ann_total.'</span></p>
+      <p class="lead">'.ann_translate("Annonces à valider").'<span class="badge bg-danger float-end">'.$num_ann_apub_total.'</span></p>
+      <p class="lead">'.ann_translate("Annonces archivées").'<span class="badge bg-secondary float-end">'.$num_ann_archive_total.'</span></p>
       <hr />
       <p><a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart=admin/adm_cat" class="btn btn-outline-primary btn-sm">'.ann_translate("Ajouter ou modifier une catégorie").'</a></p>
       <hr />';
@@ -110,7 +110,7 @@ if (!array_search($table_annonces,$tables)) {
       <div class="card my-3">
          <div class="card-header" role="tab" id="">
             <h5 class="mb-0">
-           <a data-toggle="collapse" href="#cat_'.$id_cat.'" aria-expanded="true" aria-controls="cat_'.$id_cat.'"><i data-toggle="tooltip" data-placement="top" title="'.ann_translate("Cliquer pour déplier").'" class="toggle-icon fa fa-caret-down fa-lg mr-2"></i></a>';
+           <a data-bs-toggle="collapse" href="#cat_'.$id_cat.'" aria-expanded="true" aria-controls="cat_'.$id_cat.'"><i data-bs-toggle="tooltip" data-bs-placement="top" title="'.ann_translate("Cliquer pour déplier").'" class="toggle-icon fa fa-caret-down fa-lg me-2"></i></a>';
       while ($i2= sql_fetch_assoc($select2)) {
          $id_catx=$i2['id_cat'];
          $allcat[]=$i2['id_cat'];
@@ -124,17 +124,17 @@ if (!array_search($table_annonces,$tables)) {
          $sous_content .='
             <div class="my-2 mx-3 px-1">
                <h5>
-                  <a data-toggle="tooltip" data-placement="top" title="'.ann_translate("Cliquer pour administrer").'" href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart=admin/adm_ann&amp;id_cat='.$id_catx.'"><span class="ml-1 pl-4">'.$categoriex.'</span></a>
-                  <span class="float-right">
-                     <span data-toggle="tooltip" data-placement="left" title="'.ann_translate("Annonces archivées dans la sous-catégorie").'" class="badge badge-secondary mr-2">';
+                  <a data-bs-toggle="tooltip" data-bs-placement="top" title="'.ann_translate("Cliquer pour administrer").'" href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart=admin/adm_ann&amp;id_cat='.$id_catx.'"><span class="ms-1 ps-4">'.$categoriex.'</span></a>
+                  <span class="float-end">
+                     <span data-bs-toggle="tooltip" data-bs-placement="left" title="'.ann_translate("Annonces archivées dans la sous-catégorie").'" class="badge bg-secondary me-2">';
          if (array_key_exists($id_catx,$num_ann_archive))
             $sous_content .= $num_ann_archive[$id_catx];
          $sous_content .='</span>
-                     <span data-toggle="tooltip" data-placement="left" title="'.ann_translate("Annonces à valider dans la sous-catégorie").'" class="badge badge-danger mr-2">';
+                     <span data-bs-toggle="tooltip" data-bs-placement="left" title="'.ann_translate("Annonces à valider dans la sous-catégorie").'" class="badge bg-danger me-2">';
          if (array_key_exists($id_catx,$num_ann_apub))
             $sous_content .= $num_ann_apub[$id_catx];
          $sous_content .='</span>
-                     <span data-toggle="tooltip" data-placement="left" title="'.ann_translate("Annonces en ligne dans la sous-catégorie").'" class="badge badge-success">';
+                     <span data-bs-toggle="tooltip" data-bs-placement="left" title="'.ann_translate("Annonces en ligne dans la sous-catégorie").'" class="badge bg-success">';
          if (array_key_exists($id_catx,$num_ann))
             $sous_content .= $num_ann[$id_catx];
          $sous_content .='</span>
@@ -149,14 +149,14 @@ if (!array_search($table_annonces,$tables)) {
          $sous_content .='
             <div class="my-2 mx-3 px-1">
                <h5>
-                  <a data-toggle="tooltip" data-placement="top" title="'.ann_translate("Cliquer pour administrer").'" href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart=admin/adm_ann&amp;id_cat='.$id_cat.'"><span class="ml-1 pl-4">'.ann_translate("Autres").'</span></a>
-                  <span class=" float-right">
-                     <span class="badge badge-danger mr-2">';
+                  <a data-bs-toggle="tooltip" data-bs-placement="top" title="'.ann_translate("Cliquer pour administrer").'" href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart=admin/adm_ann&amp;id_cat='.$id_cat.'"><span class="ms-1 ps-4">'.ann_translate("Autres").'</span></a>
+                  <span class=" float-end">
+                     <span class="badge bg-danger me-2">';
          if (array_key_exists($id_cat,$num_ann_apub))
             $sous_content .=
                      (($num_ann_apub[$id_cat]-$cumu_num_ann_apub)+($cumu_num_ann_apub));
          $sous_content .='</span>
-                     <span class="badge badge-success">';
+                     <span class="badge bg-success">';
          if (array_key_exists($id_cat,$num_ann))
             $sous_content .= (($num_ann[$id_cat]-$cumu_num_ann)+($cumu_num_ann));
          else
@@ -167,21 +167,21 @@ if (!array_search($table_annonces,$tables)) {
             </div>';
             }
       $content .= '
-            <a data-toggle="tooltip" data-placement="top" title="'.ann_translate("Cliquer pour administrer").'" href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart=admin/adm_ann&amp;id_cat='.$oo.'">'.$categorie.'</a>
-            <span class=" float-right">
-               <span data-toggle="tooltip" data-placement="left" title="'.ann_translate("Annonces archivées dans la catégorie").'" class="badge badge-secondary mr-2">';
+            <a data-bs-toggle="tooltip" data-bs-placement="top" title="'.ann_translate("Cliquer pour administrer").'" href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart=admin/adm_ann&amp;id_cat='.$oo.'">'.$categorie.'</a>
+            <span class=" float-end">
+               <span data-bs-toggle="tooltip" data-bs-placement="left" title="'.ann_translate("Annonces archivées dans la catégorie").'" class="badge bg-secondary me-2">';
       if (array_key_exists($id_cat,$num_ann_archive))
          $content .= ($num_ann_archive[$id_cat]+$cumu_num_ann_archive);
       else
          $content .= $cumu_num_ann_archive;
       $content .= '</span>
-               <span data-toggle="tooltip" data-placement="left" title="'.ann_translate("Annonces à valider dans la catégorie").'" class="badge badge-danger mr-2">';
+               <span data-bs-toggle="tooltip" data-bs-placement="left" title="'.ann_translate("Annonces à valider dans la catégorie").'" class="badge bg-danger me-2">';
       if (array_key_exists($id_cat,$num_ann_apub))
          $content .= ($num_ann_apub[$id_cat]+$cumu_num_ann_apub);
       else
          $content .= $cumu_num_ann_apub;
       $content .= '</span>
-               <span data-toggle="tooltip" data-placement="left" title="'.ann_translate("Annonces en ligne dans la catégorie").'" class="badge badge-success">';
+               <span data-bs-toggle="tooltip" data-bs-placement="left" title="'.ann_translate("Annonces en ligne dans la catégorie").'" class="badge bg-success">';
       if (array_key_exists($id_cat,$num_ann))
          $content .= ($num_ann[$id_cat]+$cumu_num_ann);
       else

@@ -2,13 +2,13 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* Module npds_annonces 3.0                                             */
+/* Module npds_annonces 3.1                                             */
 /*                                                                      */
 /*                                                                      */
 /* Basé sur gadjo_annonces v 1.2 - Adaptation 2008 par Jireck et lopez  */
@@ -42,10 +42,10 @@ settype($action,'string');
 // Categories
 if ($action=='ajouter') {
    if ($categorie!='') {
-      $query="INSERT INTO $table_cat (id_cat,id_cat2,categorie) VALUES ('','0','".addslashes($categorie)."')";
+      $query="INSERT INTO $table_cat (id_cat,id_cat2,categorie) VALUES ('0','0','".addslashes($categorie)."')";
       $result= sql_query($query);
    } elseif ($categorieSCAT!="") {
-      $query="INSERT INTO $table_cat (id_cat,id_cat2,categorie) VALUES ('',$id_catSCAT,'".addslashes($categorieSCAT)."')";
+      $query="INSERT INTO $table_cat (id_cat,id_cat2,categorie) VALUES ('0',$id_catSCAT,'".addslashes($categorieSCAT)."')";
       $result= sql_query($query);
    }
 } elseif ($action=='supprimer') {
@@ -85,22 +85,22 @@ echo '
    <input type="hidden" name="op" value="Extend-Admin-SubModule" />
    <input type="hidden" name="ModPath" value="'.$ModPath.'" />
    <input type="hidden" name="ModStart" value="admin/adm_cat" />
-   <div class="form-group row justify-content-end">
+   <div class="mb-3 row justify-content-end">
       <label for="" class="col-sm-4 form-control-label"><i class="fa fa-plus fa-lg" aria-hidden="true"></i> '.ann_translate("Ajouter une catégorie").'</label>
       <div class="col-sm-8">
          <input type="text" name="categorie" class="form-control">
       </div>
    </div>
-   <div class="form-group row justify-content-end">
+   <div class="mb-3 row justify-content-end">
       <div class="col-sm-offset-4 col-sm-8">
          <button name="action" class="btn btn-outline-primary" type="submit" value="ajouter"><i class="fa fa-check" aria-hidden="true"></i> '.ann_translate("Valider").'</button>
       </div>
    </div>
    <hr />
-   <div class="form-group row justify-content-end">
+   <div class="mb-3 row justify-content-end">
       <label for="" class="col-sm-4 form-control-label"><i class="fa fa-plus fa-lg" aria-hidden="true"></i> '.ann_translate("Ajouter une sous-catégorie dans").'</label>
       <div class="col-sm-8">
-         <select class="form-control custom-select" name="id_catSCAT">';
+         <select class="form-control form-select" name="id_catSCAT">';
 $query_list="SELECT * FROM $table_cat WHERE id_cat2='0' ORDER BY id_cat";
 $list= sql_query($query_list);
 settype($id_catSCAT,'string');
@@ -118,12 +118,12 @@ echo '
             </select>
          </div>
       </div>
-      <div class="form-group row justify-content-end">
+      <div class="mb-3 row justify-content-end">
          <div class="col-sm-8">
             <input type="text" class="form-control" name="categorieSCAT">
          </div>
       </div>
-      <div class="form-group row justify-content-end">
+      <div class="mb-3 row justify-content-end">
          <div class="col-sm-offset-4 col-sm-8">
             <button name="action" class="btn btn-outline-primary" type="submit" value="ajouter"><i class="fa fa-check" aria-hidden="true"></i> '.ann_translate("Valider").'</button>
          </div>
@@ -145,7 +145,7 @@ while ($i= sql_fetch_assoc($select)) {
       <input type="hidden" name="ModPath" value="'.$ModPath.'" />
       <input type="hidden" name="ModStart" value="admin/adm_cat" />
       <input type="hidden" name="id_cat" value="'.$id_cat.'" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label for="categorie'.$cj.'" class="col-sm-2 col-form-label m-y-1">'.ann_translate("Catégorie").'</label>
          <div class="col-sm-6">
             <input type="text" id="categorie'.$cj.'" name="categorie" class="form-control m-y-1" value="'.$categorie.'" required="required"/>
@@ -154,7 +154,7 @@ while ($i= sql_fetch_assoc($select)) {
             <input type="submit" name="action" class="btn btn-outline-primary form-control m-y-1" value="Modifier" />
          </div>
          <div class="col-sm-2">
-         <button type="submit" class="btn btn-outline-danger form-control m-y-1" name="action" value="supprimer"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+         <button type="submit" class="btn btn-outline-danger form-control m-y-1" name="action" value="supprimer"><i class="far fa-trash" aria-hidden="true"></i></button>
          </div>
       </div>
    </form>';
@@ -168,16 +168,16 @@ while ($i= sql_fetch_assoc($select)) {
       <input type="hidden" name="ModPath" value="'.$ModPath.'" />
       <input type="hidden" name="ModStart" value="admin/adm_cat" />
       <input type="hidden" name="id_catSCAT" value="'.$i2['id_cat'].'" />
-      <div class="form-group row">
-         <label for="categoriescat'.$scj.'" class="col-sm-2 col-form-label m-y-1"><em>'.ann_translate("Sous-catégorie").'</em></label>
+      <div class="form-floating mb-3 row">
          <div class="col-sm-6">
             <input type="text" class="form-control m-y-1" maxlength="55" id="categoriescat'.$scj.'" name="categorieSCAT" value="'.stripslashes($i2['categorie']).'" required="required" />
-         </div>
+            <label for="categoriescat'.$scj.'" <em>'.ann_translate("Sous-catégorie").'</em></label>
+        </div>
          <div class="col-sm-2">
             <button class="btn btn-outline-primary form-control m-y-1" type="submit" name="action" value="Modifier">'.ann_translate("Modifier").'</button>
          </div>
          <div class="col-sm-2">
-            <button type="submit" class="btn btn-outline-danger form-control m-y-1" name="action" value="supprimer"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+            <button type="submit" class="btn btn-outline-danger form-control m-y-1" name="action" value="supprimer"><i class="far fa-trash" aria-hidden="true"></i></button>
          </div>
       </div>
    </form>';

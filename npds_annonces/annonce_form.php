@@ -2,13 +2,13 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* Module npds_annonces 3.0                                             */
+/* Module npds_annonces 3.1                                             */
 /*                                                                      */
 /*                                                                      */
 /* Basé sur gadjo_annonces v 1.2 - Adaptation 2008 par Jireck et lopez  */
@@ -45,7 +45,7 @@ settype($op,'string');
             settype ($id_cat,"integer");
 
             $query="INSERT INTO $table_annonces (id, id_user, id_cat, tel, tel_2, code, ville, date, text, en_ligne, prix)";
-            $query.=" VALUES ('','$id_user', '$id_cat', '$tel', '$tel_2', '$code', '$ville', '".time()."', '$text', '0', '$prix')";
+            $query.=" VALUES ('0','$id_user', '$id_cat', '$tel', '$tel_2', '$code', '$ville', '".time()."', '$text', '0', '$prix')";
             $res=sql_query($query);
 
             $quer="SELECT categorie FROM $table_cat WHERE id_cat='$id_cat'";
@@ -77,14 +77,14 @@ settype($op,'string');
       <div class="card-body">
          <h3>'.ann_translate("Ajouter une annonce").'</h3>
 
-         <p><a class="btn btn-secondary btn-sm" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=photosize" data-toggle="tooltip" data-placement="left" title="'.ann_translate("Pour préparer une image").'"><i class="fa fa-picture-o" aria-hidden="true"></i> '.ann_translate("Outil").'</a></p>
-         <p class="text-center"><button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#intro">'.ann_translate("Mode d'emploi").'</button>&nbsp;&nbsp;<button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#ment">'.ann_translate("Mentions légales").'</button></p>
+         <p><a class="btn btn-secondary btn-sm" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=photosize" data-bs-toggle="tooltip" data-bs-placement="left" title="'.ann_translate("Pour préparer une image").'"><i class="fa fa-picture-o" aria-hidden="true"></i> '.ann_translate("Outil").'</a></p>
+         <p class="text-center"><button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#intro">'.ann_translate("Mode d'emploi").'</button>&nbsp;&nbsp;<button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#ment">'.ann_translate("Mentions légales").'</button></p>
          <div class="modal fade" id="intro" tabindex="-1" role="dialog" aria-labelledby="explication" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                <div class="modal-content">
                   <div class="modal-header">
                      <h4 class="modal-title" id="explication">'.ann_translate("Mode d'emploi").'</h4>
-                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
@@ -93,7 +93,7 @@ settype($op,'string');
                echo '
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">'.ann_translate("Fermer").'</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">'.ann_translate("Fermer").'</button>
                   </div>
                </div>
             </div>
@@ -103,14 +103,14 @@ settype($op,'string');
                <div class="modal-content">
                   <div class="modal-header">
                      <h4 class="modal-title" id="mentlegal">'.ann_translate("Mentions légales des conditions d'utilisation des petites annonces").'</h4>
-                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   </div>
                   <div class="modal-body">';
          include('modules/'.$ModPath.'/corps.html');
          echo '
                   </div>
                   <div class="modal-footer">
-                     <button type="button" class="btn btn-primary" data-dismiss="modal">'.ann_translate("Fermer").'</button>
+                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">'.ann_translate("Fermer").'</button>
                   </div>
                </div>
             </div>
@@ -128,7 +128,7 @@ settype($op,'string');
       <input type="hidden" name="id_user" value="'.$userinfo['uid'].'" />
       <input type="hidden" name="op" value="Soumettre" />
       <p class="lead">'.aff_langue($mess_requis).'</p>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label for="xtext" class="col-sm-12 form-control-label">'.ann_translate("Libellé de l'annonce").' <span class="text-danger"><i class="fa fa-asterisk" aria-hidden="true"></i></span></label>
          <div class="col-sm-12">
             <textarea name="xtext" class="tin form-control" rows="40"></textarea>';
@@ -137,10 +137,10 @@ settype($op,'string');
    echo '
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label for="id_cat" class="col-sm-4 form-control-label">'.ann_translate("Catégorie").' <span class="text-danger"><i class="fa fa-asterisk" aria-hidden="true"></i></span></label>
          <div class="col-sm-8">
-            <select class="custom-select" name="id_cat">';
+            <select class="form-select" name="id_cat">';
    $select = sql_query("SELECT * FROM $table_cat WHERE id_cat2='0' ORDER BY id_cat");
    settype($sel,'string');
    while($e= sql_fetch_assoc($select)) {
@@ -160,13 +160,13 @@ settype($op,'string');
             </select>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label for="ville" class="col-sm-4 col-form-label">'.ann_translate("Ville").'</label>
          <div class="col-sm-8">
             <input type="text" name="ville" class="form-control" id="ville" placeholder="" />
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label for="newancode" class="col-sm-4 col-form-label">'.ann_translate("Code postal").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="code" id="newancode" placeholder="" />
@@ -177,7 +177,7 @@ settype($op,'string');
    if ($aff_prix) {
    settype($prix,'string');// en attendant de savoir vraiment ce qui peut et doit arrivé pour cette valeur
    echo '
-   <div class="form-group row">
+   <div class="mb-3 row">
       <label for="prix" class="col-sm-4 form-control-label">'.ann_translate("Prix en").' '.aff_langue($prix_cur).' <span class="text-danger"><i class="fa fa-asterisk" aria-hidden="true"></i></span></label>
       <div class="col-sm-8">
          <div class="input-group">
@@ -192,20 +192,20 @@ settype($op,'string');
 
    echo'
       <fieldset disabled>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label for="" class="col-sm-4 col-form-label">'.ann_translate("Nom").'</label>
             <div class="col-sm-8">
                <input type="text" class="form-control" name="" id="" placeholder="'.$userinfo["uname"].'">
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label for="" class="col-sm-4 col-form-label">'.ann_translate("Email").'</label>
             <div class="col-sm-8">
                <input type="email" class="form-control" name="" id="" placeholder="'.$userinfo['email'].'" />
             </div>
          </div>
       </fieldset>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label for="newantel" class="col-sm-4 col-form-label">'.ann_translate("Tél fixe").'</label>
          <div class="col-sm-8">
             <div class="input-group">
@@ -214,7 +214,7 @@ settype($op,'string');
             </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label for="newantel_2" class="col-sm-4 col-form-label">'.ann_translate("Tél portable").'</label>
          <div class="col-sm-8">
             <div class="input-group">
@@ -223,8 +223,8 @@ settype($op,'string');
             </div>
          </div>
       </div>
-      <div class="form-group row">
-         <div class="col-sm-8 ml-auto">
+      <div class="mb-3 row">
+         <div class="col-sm-8 ms-auto">
             <button type="submit" class="btn btn-primary">'.ann_translate("Soumettre").'</button>
          </div>
       </div>

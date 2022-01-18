@@ -2,13 +2,13 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* Module npds_annonces 3.0                                             */
+/* Module npds_annonces 3.1                                             */
 /*                                                                      */
 /*                                                                      */
 /* Basé sur gadjo_annonces v 1.2 - Adaptation 2008 par Jireck et lopez  */
@@ -58,7 +58,7 @@ include ("modules/$ModPath/include/search_form.php");
          $sup=$nombre;
       else
          $sup=$min+$max;
-      echo '<p class="lead"><i class="fa fa-circle" aria-hidden="true"></i> Annonces <span class="badge badge-primary">'.$inf.' à '.$sup.'</span> sur <span class="badge badge-secondary">'.$nombre.'</span> correspondant à votre recherche</p>';
+      echo '<p class="lead"><i class="fa fa-circle" aria-hidden="true"></i> Annonces <span class="badge bg-primary">'.$inf.' à '.$sup.'</span> sur <span class="badge bg-secondary">'.$nombre.'</span> correspondant à votre recherche</p>';
    }
 
    $query="SELECT * FROM $table_annonces WHERE UPPER(text) LIKE '%$search[0]%'";

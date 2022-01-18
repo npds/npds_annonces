@@ -2,13 +2,13 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* Module npds_annonces 3.0                                             */
+/* Module npds_annonces 3.1                                             */
 /*                                                                      */
 /*                                                                      */
 /* Basé sur gadjo_annonces v 1.2 - Adaptation 2008 par Jireck et lopez  */
@@ -65,7 +65,7 @@ if ($action=="Supprimer") {
    echo aff_langue($mess_acc);
    echo '
    <h3>Administration des annonces</h3>
-   <p><a data-toggle="tooltip" data-placement="top" title="'.ann_translate("Pour préparer une image").'" class="btn btn-secondary btn-sm" href="modules.php?ModPath='.$ModPath.'&ModStart=photosize"><i class="fa fa-picture-o" aria-hidden="true"></i> '.ann_translate("Outil").'</a></p>';
+   <p><a data-bs-toggle="tooltip" data-bs-placement="top" title="'.ann_translate("Pour préparer une image").'" class="btn btn-secondary btn-sm" href="modules.php?ModPath='.$ModPath.'&ModStart=photosize"><i class="fa fa-picture-o" aria-hidden="true"></i> '.ann_translate("Outil").'</a></p>';
    if (!isset($id_cat_sel)) {
    
       if(!strstr($id_cat, '|')) {
@@ -129,57 +129,57 @@ if ($action=="Supprimer") {
 
 //id de l'annonce
       echo '
-      <p class="lead">'.ann_translate("Annonce").' ID : <span class="badge badge-secondary">'.$id.'</span>';
+      <p class="lead">'.ann_translate("Annonce").' ID : <span class="badge bg-secondary">'.$id.'</span>';
       if ($values['en_ligne']=="1") {
-         echo '<span class="badge badge-success float-right">'.ann_translate("En ligne").'</span>';
+         echo '<span class="badge bg-success float-end">'.ann_translate("En ligne").'</span>';
       } elseif ($values['en_ligne']=="0") {
-         echo '<span class="badge badge-danger mt-1 float-right">'.ann_translate("En attente").'</span>';
+         echo '<span class="badge bg-danger mt-1 float-end">'.ann_translate("En attente").'</span>';
       } else {
-      echo '<span class="badge badge-secondary float-right">'.ann_translate("En archive").'</span>';
+      echo '<span class="badge bg-secondary float-end">'.ann_translate("En archive").'</span>';
       }
       echo '</p>';
 
       echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label for="" class="col-sm-4 form-control-label">'.ann_translate("Nom").'</label>
          <div class="col-sm-8">
          <span class="form-control">'.$nom.'</span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label for="" class="col-sm-4 form-control-label">'.ann_translate("Email").'</label>
          <div class="col-sm-8">
          <span class="form-control">'.$mail.'</span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label for="" class="col-sm-4 form-control-label">'.ann_translate("Tél fixe").'</label>
          <div class="col-sm-8">
          <input type="text" class="form-control" id="" name="tel" placeholder="'.$tel.'" value="'.$tel.'">
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label for="" class="col-sm-4 form-control-label">'.ann_translate("Tél portable").'</label>
          <div class="col-sm-8">
          <input type="text" class="form-control" id="" name="tel_2" placeholder="'.$tel_2.'" value="'.$tel_2.'">
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label for="" class="col-sm-4 form-control-label">'.ann_translate("Code postal").'</label>
          <div class="col-sm-8">
          <input type="text" class="form-control" id="" name="code" placeholder="'.$code.'" value="'.$code.'">
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label for="" class="col-sm-4 form-control-label">'.ann_translate("Ville").'</label>
          <div class="col-sm-8">
          <input type="text" class="form-control" id="" name="ville" placeholder="'.$ville.'" value="'.$ville.'">
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label for="" class="col-sm-4 form-control-label">'.ann_translate("Catégorie").' <i class="fa fa-asterisk text-danger" aria-hidden="true"></i></label>
          <div class="col-sm-8">
-            <select class="custom-select" name="Xid_cat">';
+            <select class="form-select" name="Xid_cat">';
 
       $select= sql_query("SELECT * FROM $table_cat WHERE id_cat2='0' ORDER BY id_cat");
       while($e= sql_fetch_assoc($select)) {
@@ -197,7 +197,7 @@ if ($action=="Supprimer") {
             </select>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label for="" class="col-sm-12 form-control-label">'.ann_translate("Libellé de l'annonce").' <span class="text-danger"><i class="fa fa-asterisk" aria-hidden="true"></i></span></label>
          <div class="col-sm-12">';
       echo '<textarea name="xtext" class="tin form-control" rows="50">'.$text.'</textarea>';
@@ -208,7 +208,7 @@ if ($action=="Supprimer") {
 //prix
       if ($aff_prix) {
          echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label for="" class="col-sm-4 form-control-label" required="required">'.ann_translate("Prix en").' '.aff_langue($prix_cur).' <span class="text-danger"><i class="fa fa-asterisk" aria-hidden="true"></i></span></label>
             <div class="col-sm-8">
             <input type="text" name="prix" class="form-control" id="" value="'.$prix.'" placeholder="'.$prix.'">
@@ -220,7 +220,7 @@ if ($action=="Supprimer") {
       }
 //boutons supp modif
       echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <div class="col-md-1"><button class="btn btn-outline-primary btn-sm mb-1" type="submit" name="action" value="Valider">'.ann_translate("Valider").'</button></div>
             <div class="col-md-1"><button class="btn btn-outline-danger btn-sm" type="submit" name="action" value="Supprimer">'.ann_translate("Supprimer").'</button></div>
          </div>

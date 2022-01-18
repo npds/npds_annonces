@@ -2,13 +2,13 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* Module npds_annonces 3.0                                             */
+/* Module npds_annonces 3.1                                             */
 /*                                                                      */
 /*                                                                      */
 /* Basé sur gadjo_annonces v 1.2 - Adaptation 2008 par Jireck et lopez  */
@@ -73,7 +73,7 @@ if (isset($user)) {
    <div class="card">
       <div class="card-body">
          <h3>'.ann_translate("Gestion de vos annonces").'</h3>
-         <div class=" blockquote lead">'.aff_langue($del_sup_chapo).'<br /> <strong>'.$cookie[1].'</strong>, '.ann_translate("vous avez").' <span class="badge badge-pill badge-success">'.$count.'</span> '.ann_translate("annonce(s) en ligne").'</div>
+         <div class=" blockquote lead">'.aff_langue($del_sup_chapo).'<br /> <strong>'.$cookie[1].'</strong>, '.ann_translate("vous avez").' <span class="badge badge-pill bg-success">'.$count.'</span> '.ann_translate("annonce(s) en ligne").'</div>
          <div class="alert alert-warning">'.aff_langue($warning).'</div>
          <hr />';
    }
@@ -100,13 +100,13 @@ if (isset($user)) {
       $id_cat_sel=$i['id_cat'];
       $prix=$i['prix'];
       echo '
-      <h4 class="mb-4">'.ann_translate("Annonce").'<span class="float-right"><span class="badge badge-secondary mr-2">ID '.$id.'</span><span class="badge badge-success">'.ann_translate("En ligne").'</span></span></h4>
+      <h4 class="mb-4">'.ann_translate("Annonce").'<span class="float-end"><span class="badge bg-secondary me-2">ID '.$id.'</span><span class="badge bg-success">'.ann_translate("En ligne").'</span></span></h4>
       <form id="modifannonce'.$j.'" method="post" action="modules.php" name="adminForm">
          <input type="hidden" name="ModPath" value="'.$ModPath.'" />
          <input type="hidden" name="ModStart" value="'.$ModStart.'" />
          <input type="hidden" name="id" value="'.$id.'" />
          
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label for="manxtext'.$j.'" class="col-sm-12 col-form-label">'.ann_translate("Libellé de l'annonce").'</label>
             <div class="col-sm-12">
                <textarea name="xtext" id="manxtext'.$j.'" class="tin form-control" rows="40">'.$text.'</textarea>';
@@ -115,10 +115,10 @@ if (isset($user)) {
          echo '
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label for="id_cat'.$j.'" class="col-sm-4 col-form-label">'.ann_translate("Catégorie").'</label>
             <div class="col-sm-8">
-               <select class="custom-select" name="id_cat" id="id_cat'.$j.'">';
+               <select class="form-select" name="id_cat" id="id_cat'.$j.'">';
       $select = sql_query("SELECT * FROM $table_cat WHERE id_cat2='0' ORDER BY id_cat");
       while($e= sql_fetch_assoc($select)) {
          echo "<option value='".$e['id_cat']."'";
@@ -135,13 +135,13 @@ if (isset($user)) {
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label for="manville'.$j.'" class="col-sm-4 col-form-label">'.ann_translate("Ville").'</label>
             <div class="col-sm-8">
                <input type="text" name="ville" class="form-control" id="manville'.$j.'" value="'.$ville.'" placeholder="'.$ville.'" />
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label for="mancode'.$j.'" class="col-sm-4 col-form-label">Code postal</label>
             <div class="col-sm-8">
                <input type="text"  class="form-control" name="code" id="mancode'.$j.'" value="'.$code.'" placeholder="'.$code.'" />
@@ -150,7 +150,7 @@ if (isset($user)) {
 ';
       if ($aff_prix)
          echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label for="" class="col-sm-4 form-control-label">'.ann_translate("Prix en").' '.aff_langue($prix_cur).'</label>
          <div class="col-sm-8">
             <input type="text" name="prix" class="form-control" id="" value="'.$prix.'" placeholder="'.$prix.'" />
@@ -160,7 +160,7 @@ if (isset($user)) {
          echo '
       <input type="hidden" name="prix" value="'.$prix.'" />';
       echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label for="mantel'.$j.'" class="col-sm-4 col-form-label">'.ann_translate("Tél fixe").'</label>
             <div class="col-sm-8">
                <div class="input-group">
@@ -169,7 +169,7 @@ if (isset($user)) {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label for="mantel2_'.$j.'" class="col-sm-4 col-form-label">'.ann_translate("Tél portable").'</label>
             <div class="col-sm-8">
                <div class="input-group">
@@ -178,10 +178,10 @@ if (isset($user)) {
                </div>
             </div>
          </div>
-         <div class="form-group row">
-            <div class="col-sm-8 ml-auto">
-               <button type="submit" name="op" class="btn btn-primary mr-2" value="Modifier">'.ann_translate("Modifier").'</button>
-               <button type="submit" name="op" class="btn btn-danger" value="Supprimer"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i> '.ann_translate("Supprimer").'</button>
+         <div class="mb-3 row">
+            <div class="col-sm-8 ms-auto">
+               <button type="submit" name="op" class="btn btn-primary me-2" value="Modifier">'.ann_translate("Modifier").'</button>
+               <button type="submit" name="op" class="btn btn-danger" value="Supprimer"><i class="far fa-trash fa-lg" aria-hidden="true"></i> '.ann_translate("Supprimer").'</button>
             </div>
          </div>
       </form>';
@@ -202,7 +202,7 @@ if (isset($user)) {
    echo '
       </ul>
    </nav>';
-   echo '<h4><span class="badge badge-pill badge-warning">'.$count2[0].'</span> '.ann_translate("annonce(s)").' '.ann_translate("en attente de validation").'</h4>';
+   echo '<h4><span class="badge badge-pill bg-warning">'.$count2[0].'</span> '.ann_translate("annonce(s)").' '.ann_translate("en attente de validation").'</h4>';
    echo '
       </div>
    </div>';

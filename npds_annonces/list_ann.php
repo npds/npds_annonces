@@ -2,13 +2,13 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* Module npds_annonces 3.0                                             */
+/* Module npds_annonces 3.1                                             */
 /*                                                                      */
 /*                                                                      */
 /* Basé sur gadjo_annonces v 1.2 - Adaptation 2008 par Jireck et lopez  */
@@ -51,8 +51,8 @@ else
 echo '
    <div class="card">
       <div class="card-body">
-      <p class="lead"><strong>'.$categorie.'</strong> : '.ann_translate("Il y a").' <span class="badge badge-success">'.$num_ann.'</span> '.ann_translate("annonce(s) en ligne").'</p>
-      <p class="lead"><span class="badge badge-primary">'.$inf.' '.ann_translate("à").' '.$sup.'</span></p>';
+      <p class="lead"><strong>'.$categorie.'</strong> : '.ann_translate("Il y a").' <span class="badge bg-success">'.$num_ann.'</span> '.ann_translate("annonce(s) en ligne").'</p>
+      <p class="lead"><span class="badge bg-primary">'.$inf.' '.ann_translate("à").' '.$sup.'</span></p>';
 
    include ("modules/$ModPath/include/annonce.php");
 

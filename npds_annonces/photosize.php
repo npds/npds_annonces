@@ -2,13 +2,13 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* Module npds_annonces 3.0                                             */
+/* Module npds_annonces 3.1                                             */
 /*                                                                      */
 /*                                                                      */
 /* Basé sur gadjo_annonces v 1.2 - Adaptation 2008 par Jireck et lopez  */
@@ -123,14 +123,14 @@
    }
 
 echo '<form enctype="multipart/form-data" action="modules.php?ModPath='.$ModPath.'&amp;ModStart=photosize" method="post">
-         <fieldset class="form-group">
+         <fieldset class="mb-3">
          <label for="">'.$selection.'</label>
             <input type="hidden" name="max_file_size" value="5000000" />
             <input class="form-control" type="file" name="monfichier" />
             <p class="text-muted">'.$messagefjpg.'</p>
          </fieldset>
-         <fieldset class="form-group has-success">
-            <select class="custom-select" name="choix" id="choix">
+         <fieldset class="mb-3 has-success">
+            <select class="form-select" name="choix" id="choix">
                <option>Maxi</option>
                <option selected>Normal</option>
                <option>Mini</option>
@@ -143,7 +143,7 @@ echo '<form enctype="multipart/form-data" action="modules.php?ModPath='.$ModPath
                </ul>
             </p>
          </fieldset>
-         <fieldset class="form-group">
+         <fieldset class="mb-3">
             <button type="submit" class="btn btn-outline-primary btn-sm"><i class="fa fa-check" aria-hidden="true"></i> '.ann_translate("Redimensionner").'</button>
          </fieldset>
       </form>';
