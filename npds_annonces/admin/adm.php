@@ -26,56 +26,24 @@ $f_meta_nom ='npds_annonces';
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
+global $NPDS_Prefix;
 
 include ("modules/$ModPath/annonce.conf.php");
 include ("modules/$ModPath/lang/annonces-$language.php");
 
-// Création automatique des tables
-/*$result=sql_list_tables();
-while (list($table)=sql_fetch_row($result)) {
-   $tables[]=$table;
-}
-if (!array_search($table_cat,$tables)) {
-   $sql_query="CREATE TABLE IF NOT EXISTS ".$table_cat." (
-     id_cat mediumint(11) NOT NULL auto_increment,
-     id_cat2 mediumint(11) NOT NULL default '0',
-     categorie varchar(30) NOT NULL default '',
-     KEY id (id_cat)
-     )";
-   $result = sql_query($sql_query);
-}
-if (!array_search($table_annonces,$tables)) {
-   $sql_query="CREATE TABLE IF NOT EXISTS ".$table_annonces." (
-     id bigint(20) NOT NULL auto_increment,
-     id_user bigint(20) default NULL,
-     id_cat mediumint(11) default NULL,
-     tel varchar(20) NOT NULL default '',
-     tel_2 varchar(20) NOT NULL default '',
-     code varchar(5) NOT NULL default '',
-     ville varchar(40) NOT NULL default '',
-     date varchar(20) NOT NULL default '',
-     text mediumtext NOT NULL,
-     en_ligne TINYINT(1) NOT NULL DEFAULT '0',
-     prix DECIMAL (10,2) NOT NULL DEFAULT '0',
-     KEY id (id)
-     )";
-   $result = sql_query($sql_query);
-}*/
-// Création automatique des tables
-
-   $result= sql_query("SELECT id FROM $table_annonces WHERE en_ligne='1'");
+   $result= sql_query("SELECT id FROM $NPDS_Prefix.g_annonces WHERE en_ligne='1'");
    $num_ann_total= sql_num_rows($result);
-   $result= sql_query("SELECT id FROM $table_annonces WHERE en_ligne='0'");
+   $result= sql_query("SELECT id FROM ".$NPDS_Prefix."g_annonces WHERE en_ligne='0'");
    $num_ann_apub_total= sql_num_rows($result);
-   $result= sql_query("SELECT id FROM $table_annonces WHERE en_ligne='2'");
+   $result= sql_query("SELECT id FROM ".$NPDS_Prefix."g_annonces WHERE en_ligne='2'");
    $num_ann_archive_total= sql_num_rows($result);
 
    GraphicAdmin($hlpfile);
 
    echo '
-   <div id="adm_men">';
-   echo aff_langue($mess_acc);
-   echo '
+   <div class="border rounded p-3">
+      <h2><img class="align-middle me-2" src="modules/npds_annonces/npds_annonces.png" alt="icon_npds_annonces"><a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=npds_annonces&amp;ModStart=admin/adm">Annonces</a></h2>
+      <hr />
       <p class="lead">'.ann_translate("Annonces en ligne").'<span class="badge bg-success float-end">'.$num_ann_total.'</span></p>
       <p class="lead">'.ann_translate("Annonces à valider").'<span class="badge bg-danger float-end">'.$num_ann_apub_total.'</span></p>
       <p class="lead">'.ann_translate("Annonces archivées").'<span class="badge bg-secondary float-end">'.$num_ann_archive_total.'</span></p>
@@ -84,27 +52,27 @@ if (!array_search($table_annonces,$tables)) {
       <hr />';
 
    $num_ann_apub=array();$num_ann_archive=array();$num_ann=array();
-   $result= sql_query("SELECT id_cat, COUNT(en_ligne) FROM $table_annonces WHERE en_ligne='1' GROUP BY id_cat");
+   $result= sql_query("SELECT id_cat, COUNT(en_ligne) FROM ".$NPDS_Prefix."g_annonces WHERE en_ligne='1' GROUP BY id_cat");
    while (list($cat, $count)= sql_fetch_row($result)) {
       $num_ann[$cat]=$count;
    }
-   $result= sql_query("SELECT id_cat, COUNT(en_ligne) FROM $table_annonces WHERE en_ligne='0' GROUP BY id_cat");
+   $result= sql_query("SELECT id_cat, COUNT(en_ligne) FROM ".$NPDS_Prefix."g_annonces WHERE en_ligne='0' GROUP BY id_cat");
    while (list($cat, $count)= sql_fetch_row($result)) {
       $num_ann_apub[$cat]=$count;
    }
-   $result= sql_query("SELECT id_cat, COUNT(en_ligne) FROM $table_annonces WHERE en_ligne='2' GROUP BY id_cat");
+   $result= sql_query("SELECT id_cat, COUNT(en_ligne) FROM ".$NPDS_Prefix."g_annonces WHERE en_ligne='2' GROUP BY id_cat");
    while (list($cat, $count)= sql_fetch_row($result)) {
       $num_ann_archive[$cat]=$count;
    }
    $content='';
-   $select= sql_query("SELECT * FROM $table_cat WHERE id_cat2='0' ORDER BY id_cat");
+   $select= sql_query("SELECT * FROM ".$NPDS_Prefix."g_categories WHERE id_cat2='0' ORDER BY id_cat");
    while ($i= sql_fetch_assoc($select)) {
       $allcat=array('');
       $sous_content='';
       $id_cat=$i['id_cat'];
       $allcat[]=$i['id_cat'];
       $categorie=stripslashes($i['categorie']);
-      $select2= sql_query("SELECT * FROM $table_cat WHERE id_cat2='$id_cat' ORDER BY id_cat");
+      $select2= sql_query("SELECT * FROM ".$NPDS_Prefix."g_categories WHERE id_cat2='$id_cat' ORDER BY id_cat");
       $cumu_num_ann=0;$cumu_num_ann_apub=0;$cumu_num_ann_archive=0;
       $content .= '
       <div class="card my-3">

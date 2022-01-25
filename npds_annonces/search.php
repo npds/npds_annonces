@@ -39,7 +39,7 @@ include ("modules/$ModPath/include/search_form.php");
    $search = strtoupper($search);
    $search = explode(' ',$search);
    $tot=count($search);
-   $query= "SELECT COUNT(*) FROM $table_annonces WHERE UPPER(text) LIKE '%$search[0]%'";
+   $query= "SELECT COUNT(*) FROM ".$NPDS_Prefix."g_annonces WHERE UPPER(text) LIKE '%$search[0]%'";
    for ($i=1; $i<$tot; $i++) {
       $query.=" OR TEXT LIKE '%$search[$i]%'";
    }
@@ -61,7 +61,7 @@ include ("modules/$ModPath/include/search_form.php");
       echo '<p class="lead"><i class="fa fa-circle" aria-hidden="true"></i> Annonces <span class="badge bg-primary">'.$inf.' à '.$sup.'</span> sur <span class="badge bg-secondary">'.$nombre.'</span> correspondant à votre recherche</p>';
    }
 
-   $query="SELECT * FROM $table_annonces WHERE UPPER(text) LIKE '%$search[0]%'";
+   $query="SELECT * FROM ".$NPDS_Prefix."g_annonces WHERE UPPER(text) LIKE '%$search[0]%'";
    for ($i=1; $i<$tot; $i++) {
       $query.=" OR TEXT LIKE '%$search[$i]%'";
    }

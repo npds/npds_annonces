@@ -44,7 +44,7 @@ if (($min+$max)>=$num_ann)
    $sup=$num_ann;
 else
    $sup=$min+$max;
-   $query="SELECT * FROM $table_annonces WHERE id_cat$q AND en_ligne='1' ORDER BY id DESC LIMIT $min,$max";
+   $query="SELECT * FROM ".$NPDS_Prefix."g_annonces WHERE id_cat$q AND en_ligne='1' ORDER BY id DESC LIMIT $min,$max";
    echo aff_langue($mess_acc);
    include ("modules/$ModPath/include/search_form.php");
 

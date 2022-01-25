@@ -30,7 +30,7 @@ echo aff_langue($mess_acc);
 
 // Purge
 $obsol=time()-($obsol*30*86400);
-$query="UPDATE $table_annonces SET en_ligne='2' WHERE (date<'$obsol')";
+$query="UPDATE ".$NPDS_Prefix."g_annonces SET en_ligne='2' WHERE (date<'$obsol')";
 $succes= sql_query($query);
 
 include ("modules/$ModPath/include/search_form.php");
@@ -39,31 +39,31 @@ settype($num_ann_total,'integer');
 settype($content,'string');
 settype($ibid,'integer');
 $num_ann=array();
-$result= sql_query("SELECT id_cat, COUNT(en_ligne) FROM $table_annonces WHERE en_ligne='1' GROUP BY id_cat");
+$result= sql_query("SELECT id_cat, COUNT(en_ligne) FROM ".$NPDS_Prefix."g_annonces WHERE en_ligne='1' GROUP BY id_cat");
 while (list($cat, $count)= sql_fetch_row($result)) {
    $num_ann[$cat]=$count;
    $num_ann_total+=$count;
 }
-$result = sql_query("SELECT id_cat, COUNT(en_ligne) FROM $table_annonces WHERE en_ligne='0' GROUP BY id_cat");
+$result = sql_query("SELECT id_cat, COUNT(en_ligne) FROM ".$NPDS_Prefix."g_annonces WHERE en_ligne='0' GROUP BY id_cat");
 while (list($cat, $count)= sql_fetch_row($result)) {
    $num_ann_apub[$cat]=$count;
    $num_ann_apub_total+=$count;
 }
-$result= sql_query("SELECT id_cat, COUNT(en_ligne) FROM $table_annonces WHERE en_ligne='2' GROUP BY id_cat");
+$result= sql_query("SELECT id_cat, COUNT(en_ligne) FROM ".$NPDS_Prefix."g_annonces WHERE en_ligne='2' GROUP BY id_cat");
 while (list($cat, $count)= sql_fetch_row($result)) {
    $num_ann_archive[$cat]=$count;
 }
 
 echo '<p class="lead">'.ann_translate("Il y a").' <span class="badge bg-success">'.$num_ann_total.'</span> '.ann_translate("annonce(s)").' '.ann_translate("publiée(s)").'</p>';
 
-$select= sql_query("SELECT * FROM $table_cat WHERE id_cat2='0' ORDER BY id_cat");
+$select= sql_query("SELECT * FROM ".$NPDS_Prefix."g_categories WHERE id_cat2='0' ORDER BY id_cat");
 while ($i= sql_fetch_assoc($select)) {
    $allcat=array('');
    $sous_content='';
    $id_cat=$i['id_cat'];
    $allcat[]=$i['id_cat'];
    $categorie=stripslashes($i['categorie']);
-   $select2= sql_query("SELECT * FROM $table_cat WHERE id_cat2='$id_cat' ORDER BY id_cat");
+   $select2= sql_query("SELECT * FROM ".$NPDS_Prefix."g_categories WHERE id_cat2='$id_cat' ORDER BY id_cat");
    $cumu_num_ann=0;
    $content .= '
    <div class="card my-3">
@@ -116,11 +116,14 @@ while ($i= sql_fetch_assoc($select)) {
 }
 echo $content;
 if (($admin) and $num_ann_apub_total>0)
-   echo '<hr /><p><a class="btn btn-outline-danger " href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart=admin/adm"><span class="badge bg-danger me-2">'.$num_ann_apub_total.'</span>'.ann_translate("annonce(s) à valider").'</a></p>
-';
-
    echo '
-      </div>
-   </div>';
+   <hr />
+   <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart=admin/adm" class="btn btn-primary position-relative">
+      <i class="fa fa-cogs fa-lg me-2" aria-hidden="true"></i>'.ann_translate("annonce(s) à valider").'
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+       '.$num_ann_apub_total.'
+       <span class="visually-hidden">'.ann_translate("annonce(s) à valider").'</span>
+     </span>
+   </a>';
 include ("footer.php");
 ?>

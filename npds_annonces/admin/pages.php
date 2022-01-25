@@ -28,16 +28,16 @@ $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=list_ann*']['run']="yes";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=annonce_form*']['title']="[french]Petites Annonces[/french][english]Offers[/english]+|$title+";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=annonce_form*']['run']="yes";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=annonce_form*']['TinyMce']=1;
-$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=annonce_form*']['TinyMce-theme']="short";
+$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=annonce_form*']['TinyMce-theme']="short+setup";
 
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=modif_ann*']['title']="[french]Petites Annonces[/french][english]Offers[/english]+|$title+";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=modif_ann*']['run']="yes";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=modif_ann*']['TinyMce']=1;
-$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=modif_ann*']['TinyMce-theme']="short";
+$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=modif_ann*']['TinyMce-theme']="short+setup";
 
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=admin*']['title']="[french]Petites Annonces[/french][english]Offers[/english]+|$title+";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=admin*']['run']="yes";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=admin*']['TinyMce']=1;
-$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=admin*']['TinyMce-theme']="full";
+$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=admin*']['TinyMce-theme']="full+setup";
 
 ?>
