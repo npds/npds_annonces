@@ -2,13 +2,13 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* Module npds_annonces 3.0                                             */
+/* Module npds_annonces 3.1                                             */
 /*                                                                      */
 /*                                                                      */
 /* Basé sur gadjo_annonces v 1.2 - Adaptation 2008 par Jireck et lopez  */
@@ -16,12 +16,9 @@
 /* MAJ Dev - 2011                                                       */
 /* Changement de nom du module version Rev16 par jpb/phr janv 2017      */
 /************************************************************************/
-$GS_version='3.0';
+$GS_version='3.1';
 global $language, $NPDS_Prefix;
-// table des catégories
-$table_cat=$NPDS_Prefix."g_categories";
-// table des annonces
-$table_annonces=$NPDS_Prefix."g_annonces";
+
 // intégration de TinyMce - true or false
 $editeur=true;
 // affichage de la zone de saisie du Prix - true or false
@@ -40,5 +37,5 @@ $mess_acc='<h2 class="mb-3"><img src="modules/npds_annonces/npds_annonces.png" a
 $del_sup_chapo='[french]A partir de cette page, vous pouvez ajouter, modifier ou supprimer vos annonce(s)[/french] [english]From this page you can add, modify or delete your ad (s)[/english]';
 $warning='[french]Attention, la suppression est irréversible, la modification d\'une annonce la remet en attente pour validation[/french] [english]The deletion is irreversible, the modification of an announcement puts it back on hold for validation[/english]';
 //pour le pages de formulaire
-$mess_requis='[french]Merci de remplir tous les champs marqués d\'un[/french] [english]Please fill all fields marked with[/english] <span class="text-danger"><i class="fa fa-asterisk"></i></span>';
+$mess_requis='[french]Merci de remplir tous les champs marqués d\'un[/french] [english]Please fill all fields marked with[/english] <span class="text-danger">*</span>';
 ?>

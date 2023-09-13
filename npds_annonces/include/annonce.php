@@ -2,13 +2,13 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* Module npds_annonces 3.0                                             */
+/* Module npds_annonces 3.1                                             */
 /*                                                                      */
 /*                                                                      */
 /* Basé sur gadjo_annonces v 1.2 - Adaptation 2008 par Jireck et lopez  */
@@ -51,13 +51,13 @@ function aff_annonces($select) {
       $ibid='
       <div class="card my-3">
          <div class="card-body">
-            <h4>'.ann_translate("Annonce de").' '.$nom.' '.userpopover($nom,'48').' <span id="validdate'.$j.'" class="float-right">'.$date.'</span></h4>
+            <h4>'.ann_translate("Annonce de").' '.$nom.' '.userpopover($nom,'48').' <span id="validdate'.$j.'" class="float-end">'.$date.'</span></h4>
             <hr />
             <div class="card-text">';
       if ($aff_prix)
          $ibid.='
-               <div class="text-right h3">
-                  <span class=" badge badge-success heading1">'.$prix.' '.aff_langue($prix_cur).'</span>
+               <div class="text-end h3">
+                  <span class=" badge bg-success heading1">'.$prix.' '.aff_langue($prix_cur).'</span>
                </div>';
       $ibid.='
             </div>
@@ -80,17 +80,17 @@ function aff_annonces($select) {
 
       $ibid2='
       <hr />
-      <form method="post" action="modules.php" class="text-right">
+      <form method="post" action="modules.php" class="text-end">
          <input type="hidden" name="ModPath" value="'.$ModPath.'" />
          <input type="hidden" name="ModStart" value="print" />
          <input type="hidden" name="text" value="'.rawurlencode(str_replace("##imp##","",$ibid)).'" />
-         <a class="btn btn-primary mr-2" href="mailto:'.anti_spam($mail).'"><i class="fa fa-at fa-lg" aria-hidden="true"></i></a>';
+         <a class="btn btn-primary me-2" href="mailto:'.anti_spam($mail).'"><i class="fa fa-at fa-lg" aria-hidden="true"></i></a>';
       if ($tel!='')
          $ibid2.='
-         <span class="mr-2"><i class="fa fa-phone fa-2x align-middle" aria-hidden="true"></i> <a data-rel="external" href="tel:+33'.$tel.'" target="_blank">+33'.$tel.'</a></span>';
+         <span class="me-2"><i class="fa fa-phone fa-2x align-middle" aria-hidden="true"></i> <a data-rel="external" href="tel:+33'.$tel.'" target="_blank">+33'.$tel.'</a></span>';
       if ($tel_2!='')
          $ibid2.='
-         <span class="mr-2"><i class="fa fa-mobile fa-2x align-middle" aria-hidden="true"></i> <a data-rel="external" href="tel:+33'.$tel_2.'" target="_blank">+33'.$tel_2.'</a></span>';
+         <span class="me-2"><i class="fa fa-mobile fa-2x align-middle" aria-hidden="true"></i> <a data-rel="external" href="tel:+33'.$tel_2.'" target="_blank">+33'.$tel_2.'</a></span>';
       $ibid2.='
          <button class="btn btn-primary" type="image" name="image"><i class="fa fa-print fa-lg"></i></button>
       </form>

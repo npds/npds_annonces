@@ -2,13 +2,13 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* Module npds_annonces 3.0                                             */
+/* Module npds_annonces 3.1                                             */
 /*                                                                      */
 /*                                                                      */
 /* Basé sur gadjo_annonces v 1.2 - Adaptation 2008 par Jireck et lopez  */
@@ -42,25 +42,25 @@ if (isset($user)) {
       $prix=str_replace(",",".",$prix);
       settype($prix, "double");
 
-      $query="UPDATE $table_annonces";
+      $query="UPDATE ".$NPDS_Prefix."g_annonces";
       $query.=" SET id_cat='$id_cat', tel='$tel', tel_2='$tel_2', code='$code', ville='$ville', date='".time()."', text='$text', en_ligne='0', prix='$prix'";
       $query.=" WHERE id='$id' AND id_user='$cookie[0]'";
       $succes = sql_query($query);
       global $notify_email, $notify_from;
-      $message="Catégorie : ".StripSlashes($categorie)."<br /><br />";
+      $message= ann_translate("Catégorie").' : '.StripSlashes($categorie).'<br /><br />';
       $message.="Texte de l'annonce : ".StripSlashes(StripSlashes($text))."<br />";
       include ("signat.php");
       @send_email($notify_email, "Annonce revalidation (module annonces)", $message, $notify_from , false, "html");
    }
    if ($op=='Supprimer') {
-      $query="DELETE FROM $table_annonces WHERE id='$id' AND id_user='$cookie[0]'";
+      $query="DELETE FROM ".$NPDS_Prefix."g_annonces WHERE id='$id' AND id_user='$cookie[0]'";
       $succes = sql_query($query);
    }
    if ($succes)
       redirect_url ("modules.php?ModPath=$ModPath&ModStart=$ModStart");
 }
 
-   $succes = sql_query("SELECT count(*) FROM $table_annonces WHERE id_user='$cookie[0]' AND en_ligne='1'");
+   $succes = sql_query("SELECT count(*) FROM ".$NPDS_Prefix."g_annonces WHERE id_user='$cookie[0]' AND en_ligne='1'");
    $count = sql_fetch_row($succes);
    $count=$count[0];
    if ($count==0)
@@ -73,11 +73,11 @@ if (isset($user)) {
    <div class="card">
       <div class="card-body">
          <h3>'.ann_translate("Gestion de vos annonces").'</h3>
-         <div class=" blockquote lead">'.aff_langue($del_sup_chapo).'<br /> <strong>'.$cookie[1].'</strong>, '.ann_translate("vous avez").' <span class="badge badge-pill badge-success">'.$count.'</span> '.ann_translate("annonce(s) en ligne").'</div>
+         <div class=" blockquote lead">'.aff_langue($del_sup_chapo).'<br /> <strong>'.$cookie[1].'</strong>, '.ann_translate("vous avez").' <span class="badge badge-pill bg-success">'.$count.'</span> '.ann_translate("annonce(s) en ligne").'</div>
          <div class="alert alert-warning">'.aff_langue($warning).'</div>
          <hr />';
    }
-   $query="SELECT count(*) FROM $table_annonces WHERE id_user='$cookie[0]' AND en_ligne='0'";
+   $query="SELECT count(*) FROM ".$NPDS_Prefix."g_annonces WHERE id_user='$cookie[0]' AND en_ligne='0'";
    $succes = sql_query($query);
    $count2 = sql_fetch_row($succes);
 
@@ -87,7 +87,7 @@ if (isset($user)) {
 
    settype ($min, 'integer');
    settype ($max, 'integer');
-   $query = "SELECT * FROM $table_annonces WHERE id_user='$cookie[0]' AND en_ligne='1' ORDER BY id DESC LIMIT $min,$max";
+   $query = "SELECT * FROM ".$NPDS_Prefix."g_annonces WHERE id_user='$cookie[0]' AND en_ligne='1' ORDER BY id DESC LIMIT $min,$max";
    $result = sql_query($query);
    $j=0;
    while ($i=sql_fetch_array($result)) {
@@ -100,13 +100,13 @@ if (isset($user)) {
       $id_cat_sel=$i['id_cat'];
       $prix=$i['prix'];
       echo '
-      <h4 class="mb-4">'.ann_translate("Annonce").'<span class="float-right"><span class="badge badge-secondary mr-2">ID '.$id.'</span><span class="badge badge-success">'.ann_translate("En ligne").'</span></span></h4>
+      <h4 class="mb-4">'.ann_translate("Annonce").'<span class="float-end"><span class="badge bg-secondary me-2">ID '.$id.'</span><span class="badge bg-success">'.ann_translate("En ligne").'</span></span></h4>
       <form id="modifannonce'.$j.'" method="post" action="modules.php" name="adminForm">
          <input type="hidden" name="ModPath" value="'.$ModPath.'" />
          <input type="hidden" name="ModStart" value="'.$ModStart.'" />
          <input type="hidden" name="id" value="'.$id.'" />
          
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label for="manxtext'.$j.'" class="col-sm-12 col-form-label">'.ann_translate("Libellé de l'annonce").'</label>
             <div class="col-sm-12">
                <textarea name="xtext" id="manxtext'.$j.'" class="tin form-control" rows="40">'.$text.'</textarea>';
@@ -115,16 +115,14 @@ if (isset($user)) {
          echo '
             </div>
          </div>
-         <div class="form-group row">
-            <label for="id_cat'.$j.'" class="col-sm-4 col-form-label">'.ann_translate("Catégorie").'</label>
-            <div class="col-sm-8">
-               <select class="custom-select" name="id_cat" id="id_cat'.$j.'">';
-      $select = sql_query("SELECT * FROM $table_cat WHERE id_cat2='0' ORDER BY id_cat");
+         <div class="form-floating mb-3">
+            <select class="form-select" name="id_cat" id="id_cat'.$j.'">';
+      $select = sql_query("SELECT * FROM ".$NPDS_Prefix."g_categories WHERE id_cat2='0' ORDER BY id_cat");
       while($e= sql_fetch_assoc($select)) {
          echo "<option value='".$e['id_cat']."'";
          if ($e['id_cat']==$id_cat_sel) echo "selected";
          echo ">".stripslashes($e['categorie'])."</option>\n";
-         $select2 = sql_query("SELECT * FROM $table_cat WHERE id_cat2='".$e['id_cat']."' ORDER BY id_cat");
+         $select2 = sql_query("SELECT * FROM ".$NPDS_Prefix."g_categories WHERE id_cat2='".$e['id_cat']."' ORDER BY id_cat");
          while ($e2= sql_fetch_assoc($select2)) {
             echo "<option value='".$e2['id_cat']."'";
             if ($e2['id_cat']==$id_cat_sel) echo "selected";
@@ -132,78 +130,74 @@ if (isset($user)) {
          }
       }
       echo '
-               </select>
-            </div>
+            </select>
+            <label for="id_cat'.$j.'" class="col-sm-4 col-form-label">'.ann_translate("Catégorie").'</label>
          </div>
-         <div class="form-group row">
-            <label for="manville'.$j.'" class="col-sm-4 col-form-label">'.ann_translate("Ville").'</label>
-            <div class="col-sm-8">
-               <input type="text" name="ville" class="form-control" id="manville'.$j.'" value="'.$ville.'" placeholder="'.$ville.'" />
+         <div class="row mb-3 g-3">
+            <div class="col-sm-6">
+               <div class="form-floating mb-3">
+                  <input type="text" name="ville" class="form-control" id="manville'.$j.'" value="'.$ville.'" placeholder="'.$ville.'" />
+                  <label for="manville'.$j.'" >'.ann_translate("Ville").'</label>
+               </div>
             </div>
-         </div>
-         <div class="form-group row">
-            <label for="mancode'.$j.'" class="col-sm-4 col-form-label">Code postal</label>
-            <div class="col-sm-8">
-               <input type="text"  class="form-control" name="code" id="mancode'.$j.'" value="'.$code.'" placeholder="'.$code.'" />
+            <div class="col-sm-6">
+               <div class="form-floating mb-3">
+                  <input type="text" class="form-control" name="code" id="mancode'.$j.'" value="'.$code.'" placeholder="'.$code.'" />
+                  <label for="mancode'.$j.'">Code postal</label>
+               </div>
             </div>
-         </div>
-';
+         </div>';
       if ($aff_prix)
          echo '
-      <div class="form-group row">
-         <label for="" class="col-sm-4 form-control-label">'.ann_translate("Prix en").' '.aff_langue($prix_cur).'</label>
-         <div class="col-sm-8">
-            <input type="text" name="prix" class="form-control" id="" value="'.$prix.'" placeholder="'.$prix.'" />
-         </div>
+      <div class="form-floating mb-3">
+         <input type="text" name="prix" class="form-control" id="" value="'.$prix.'" placeholder="'.$prix.'" />
+         <label for="">'.ann_translate("Prix en").' '.aff_langue($prix_cur).'</label>
       </div>';
       else
          echo '
       <input type="hidden" name="prix" value="'.$prix.'" />';
       echo '
-         <div class="form-group row">
-            <label for="mantel'.$j.'" class="col-sm-4 col-form-label">'.ann_translate("Tél fixe").'</label>
-            <div class="col-sm-8">
+         <div class="row mb-3 g-3">
+            <div class="col-sm-6">
+               <label class="form-label" for="mantel'.$j.'">'.ann_translate("Tél fixe").'</label>
                <div class="input-group">
-                  <div class="input-group-prepend"><div class="input-group-text">+33.0</div></div>
+                  <div class="input-group-text">+33.0</div>
                   <input type="text" class="form-control" name="tel" id="mantel'.$j.'" value="'.$tel.'" placeholder="'.$tel.'" />
                </div>
             </div>
-         </div>
-         <div class="form-group row">
-            <label for="mantel2_'.$j.'" class="col-sm-4 col-form-label">'.ann_translate("Tél portable").'</label>
-            <div class="col-sm-8">
+            <div class="col-sm-6">
+               <label class="form-label" for="mantel2_'.$j.'" >'.ann_translate("Tél portable").'</label>
                <div class="input-group">
-                  <div class="input-group-prepend"><div class="input-group-text">+33.0</div></div>
+                  <div class="input-group-text">+33.0</div>
                   <input type="text" class="form-control" name="tel_2" id="mantel2_'.$j.'" value="'.$tel_2.'" placeholder="'.$tel_2.'" />
                </div>
             </div>
          </div>
-         <div class="form-group row">
-            <div class="col-sm-8 ml-auto">
-               <button type="submit" name="op" class="btn btn-primary mr-2" value="Modifier">'.ann_translate("Modifier").'</button>
-               <button type="submit" name="op" class="btn btn-danger" value="Supprimer"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i> '.ann_translate("Supprimer").'</button>
-            </div>
+         <div class="my-4">
+            <button type="submit" name="op" class="btn btn-primary me-3" value="Modifier">'.ann_translate("Modifier").'</button>
+            <button type="submit" name="op" class="btn btn-danger" value="Supprimer"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> '.ann_translate("Supprimer").'</button>
          </div>
       </form>';
    $j++;
    }
 
    $pp=false;
-  echo '
-   <nav aria-label="">
-       <ul class="pagination pagination-sm justify-content-center">';
+   echo '
+      <hr />
+      <nav aria-label="">
+         <ul class="pagination pagination-sm justify-content-end">';
    if ($min>0) {
-      echo '<li class="page-item"><a class="page-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=modif_ann&amp;min='.($min-$max).'">'.ann_translate("Précédente").'</a></li>';
+      echo '
+            <li class="page-item"><a class="page-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=modif_ann&amp;min='.($min-$max).'">'.ann_translate("Précédente").'</a></li>';
       $pp=true;
    }
-   if (($min+$max)<$count) {
-      echo '<li class="page-item"><a class="page-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=modif_ann&amp;min='.($min+$max).'">'.ann_translate("Suivante").'</a></li>';
-   }
+   if (($min+$max)<$count)
+      echo '
+            <li class="page-item"><a class="page-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=modif_ann&amp;min='.($min+$max).'">'.ann_translate("Suivante").'</a></li>';
    echo '
-      </ul>
-   </nav>';
-   echo '<h4><span class="badge badge-pill badge-warning">'.$count2[0].'</span> '.ann_translate("annonce(s)").' '.ann_translate("en attente de validation").'</h4>';
-   echo '
+         </ul>
+      </nav>
+      <h4><span class="badge badge-pill bg-warning">'.$count2[0].'</span> '.ann_translate("annonce(s)").' '.ann_translate("en attente de validation").'</h4>
       </div>
    </div>';
 include ('footer.php');

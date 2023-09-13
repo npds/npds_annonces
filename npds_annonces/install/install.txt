@@ -2,13 +2,13 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* Module npds_annonces 3.0                                             */
+/* Module npds_annonces 3.1                                             */
 /*                                                                      */
 /*                                                                      */
 /* Basé sur gadjo_annonces v 1.2 - Adaptation 2008 par Jireck et lopez  */
@@ -30,7 +30,7 @@ Fonctionalités:
   Validité des annonces paramétrable (nombre de fois 30 jours) par l'administrateur
   Possibilité d'avoir plusieurs catégories et sous-catégories d'annonces
   Administration des annonces depuis le module Plugins du menu administration de NPDS (npds_annonces)
-  Deux tables sql seulement (g_categories, g_annonces) leur création est automatique à la première connexion au  plugin d'administration
+  Deux tables sql seulement (g_categories, g_annonces)
   Moteur de recherche intégré (spécifique aux annonces)
   Récupération des informations utilisateurs inscrits
   Envoi d'un mail à l'administrateur à chaque dépot d'annonces
@@ -52,7 +52,6 @@ Administration :
 Via l'administration des Plugins - npds_annonce (les tables seront crées automatiquement à la 1ere connexion)
 
 Le fichier annonce.conf.php permet de configurer :
-   - nom des tables,
    - utilisation des editeurs
    - affichage de la zone de prix
 
@@ -61,7 +60,7 @@ Le fichier annonce.conf.php permet de configurer :
   Il est possible d'utiliser simultanement plusieur module npds_annonces sur un même site.
  
  Variables paramétrables :
-   $obsol => nombre de fois trente jours avant destruction auto des annonces (les annonces modifiées par les utilisateurs ou l'administrateur, repartent comme de nouvelles annonces, les utilisateurs ne sont pas détruits, ils restent enregistrés comme utilisateurs du site).
+   $obsol => nombre de fois trente jours avant destruction auto des annonces (les annonces modifiées par les utilisateurs ou l'administrateur, repartent comme de nouvelles annonces).
    
    $max => nombre maxi d'annonces affichées par page
 

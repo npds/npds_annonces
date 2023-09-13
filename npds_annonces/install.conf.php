@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -61,7 +61,9 @@ $sql = array("CREATE TABLE ".$NPDS_Prefix."g_annonces (
   id_cat2 mediumint(11) NOT NULL DEFAULT '0',
   categorie varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (id_cat)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+"INSERT INTO ".$NPDS_Prefix."g_categories VALUES (0, 0, 'Divers');"
+);
 
 #autodoc $blocs = array(array(""), array(""), array(""), array(""), array(""), array(""), array(""), array(""), array(""))
 #autodoc                titre      contenu    membre     groupe     index      rétention  actif      aide       description
@@ -73,7 +75,7 @@ $blocs = array(array("Petites Annonces"), array("include#modules/npds_annonces/b
 $txtdeb = '';
 
 #autodoc $txtfin : Vous pouvez mettre ici un texte de votre choix avec du html qui s'affichera à la fin de l'install
-$txtfin = '<p>Merci d\'utiliser npds_annonces<br /><br /><a href="http://modules.npds.org" target="_blank">modules.npds.org</a></p>';
+$txtfin = '<p>Merci d\'utiliser npds_annonces<br /><br /><a href="http://npds.org" target="_blank">npds.org</a></p>';
 
 #autodoc $end_link: Lien sur lequel sera redirigé l'utilisateur à la fin de l'install (si laissé vide, redirigé sur index.php)
 #autodoc N'oubliez pas les '\' si vous utilisez des guillemets !!!

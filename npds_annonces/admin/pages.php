@@ -2,13 +2,13 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* Module npds_annonces 3.0                                             */
+/* Module npds_annonces 3.1                                             */
 /*                                                                      */
 /*                                                                      */
 /* Basé sur gadjo_annonces v 1.2 - Adaptation 2008 par Jireck et lopez  */
@@ -28,16 +28,16 @@ $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=list_ann*']['run']="yes";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=annonce_form*']['title']="[french]Petites Annonces[/french][english]Offers[/english]+|$title+";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=annonce_form*']['run']="yes";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=annonce_form*']['TinyMce']=1;
-$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=annonce_form*']['TinyMce-theme']="short";
+$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=annonce_form*']['TinyMce-theme']="short+setup";
 
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=modif_ann*']['title']="[french]Petites Annonces[/french][english]Offers[/english]+|$title+";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=modif_ann*']['run']="yes";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=modif_ann*']['TinyMce']=1;
-$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=modif_ann*']['TinyMce-theme']="short";
+$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=modif_ann*']['TinyMce-theme']="short+setup";
 
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=admin*']['title']="[french]Petites Annonces[/french][english]Offers[/english]+|$title+";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=admin*']['run']="yes";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=admin*']['TinyMce']=1;
-$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=admin*']['TinyMce-theme']="full";
+$PAGES['modules.php?ModPath='.$ModPath.'&ModStart=admin*']['TinyMce-theme']="full+setup";
 
 ?>
