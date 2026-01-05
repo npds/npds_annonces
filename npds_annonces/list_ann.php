@@ -24,7 +24,7 @@ if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script
 // For More security
 
 include 'modules/'.$ModPath.'/annonce.conf.php';
-include 'modules/'$ModPath'/lang/annonces-'.$language.'.php';
+include 'modules/'.$ModPath.'/lang/annonces-'.$language.'.php';
 include 'header.php';
 if(!strstr($id_cat, '|')) {
    $q = "='$id_cat'";
@@ -54,7 +54,7 @@ echo '
       <p class="lead"><strong>'.$categorie.'</strong> : '.ann_translate('Il y a').' <span class="badge bg-success">'.$num_ann.'</span> '.ann_translate('annonce(s) en ligne').'</p>
       <p class="lead"><span class="badge bg-primary">'.$inf.' '.ann_translate('à').' '.$sup.'</span></p>';
 
-   include 'modules/$ModPath/include/annonce.php';
+   include 'modules/'.$ModPath.'/include/annonce.php';
 
 
    $select = sql_query($query);
