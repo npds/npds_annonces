@@ -41,10 +41,10 @@ settype($action,'string');
 
 // Categories
 if ($action == 'ajouter') {
-   if ($categorie != '') {
+   if (isset($categorie) and $categorie != '') {
       $query = "INSERT INTO ".$NPDS_Prefix."g_categories (id_cat,id_cat2,categorie) VALUES ('0','0','".addslashes($categorie)."')";
       $result = sql_query($query);
-   } elseif ($categorieSCAT!="") {
+   } elseif ($categorieSCAT != '') {
       $query = "INSERT INTO ".$NPDS_Prefix."g_categories (id_cat,id_cat2,categorie) VALUES ('0',$id_catSCAT,'".addslashes($categorieSCAT)."')";
       $result = sql_query($query);
    }
