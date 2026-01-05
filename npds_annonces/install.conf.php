@@ -37,7 +37,7 @@ $icon = 'npds_annonces';
 #autodoc et dans le deuxième, A LA MEME POSITION D'INDEX QUE LE PREMIER, tapez le code à insérer dans le fichier.
 #autodoc Si le fichier doit être créé, n'oubliez pas les < ? php et ? > !!! (sans espace!).
 #autodoc Synopsis: $list_fich = array(array("nom_fichier1","nom_fichier2"), array("contenu_fichier1","contenu_fichier2"));
-$list_fich = '';
+$list_fich = array(array(''), array(''));
 
 #autodoc $sql = array(""): Si votre module doit exécuter une ou plusieurs requêtes SQL, tapez vos requêtes ici.
 #autodoc Attention! UNE requête par élément de tableau!
