@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2026 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -25,11 +25,11 @@ if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script
 
 global $language, $NPDS_Prefix;
 settype($search,'string');
-$cl_i =''; $cl_a=''; $cl_m='';
+$cl_i =''; $cl_a = ''; $cl_m = '';
 
-if($ModStart=='index') $cl_i='active';
-else if($ModStart=='modif_ann') $cl_m='active';
-else if($ModStart=='annonce_form') $cl_a='active';
+if($ModStart == 'index') $cl_i = 'active';
+else if($ModStart == 'modif_ann') $cl_m = 'active';
+else if($ModStart == 'annonce_form') $cl_a = 'active';
 
 echo '
    <div class="card mb-3 border-0">
@@ -41,23 +41,23 @@ echo '
            <div class="collapse navbar-collapse" id="menuannonce">
              <ul class="navbar-nav me-auto">
                <li class="nav-item '.$cl_i.'">
-                 <a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=index">'.ann_translate("Annonce").'</a>
+                 <a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=index">'.ann_translate('Annonce').'</a>
                </li>';
    if ($user)
       echo '
                <li class="nav-item">
-                 <a class="nav-link '.$cl_a.'" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=annonce_form">'.ann_translate("Passer P.A").'</a>
+                 <a class="nav-link '.$cl_a.'" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=annonce_form">'.ann_translate('Passer P.A').'</a>
                </li>
                <li class="nav-item">
-                 <a class="nav-link '.$cl_m.'" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=modif_ann">'.ann_translate("Gérer P.A").'</a>
+                 <a class="nav-link '.$cl_m.'" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=modif_ann">'.ann_translate('Gérer P.A').'</a>
                </li>';
    echo '
              </ul>
              <form id="annonsearch" method="post" action="modules.php" class="d-flex my-2 my-lg-0">
                <input type="hidden" name="ModPath" value="'.$ModPath.'" />
                <input type="hidden" name="ModStart" value="search" />
-               <input class="form-control me-sm-2" type="search" placeholder="'.ann_translate("Rechercher dans les annonces").'" aria-label="Search" />
-               <button class="btn btn-outline-light my-2 my-sm-0" type="submit" name="action">'.ann_translate("Valider").'</button>
+               <input class="form-control me-sm-2" type="search" placeholder="'.ann_translate('Rechercher dans les annonces').'" aria-label="Search" />
+               <button class="btn btn-outline-light my-2 my-sm-0" type="submit" name="action">'.ann_translate('Valider').'</button>
              </form>
            </div>
      </div>
@@ -65,7 +65,7 @@ echo '
    if (!$user)
       echo '
       <div class="blockquote my-3">
-         <p class="lead">'.ann_translate("Pour passer ou gérer vos annonces vous devez être membre inscrit connecté").' <br /><a class="btn btn-outline-primary mt-2" href="user.php">Connexion</a></p>
+         <p class="lead">'.ann_translate('Pour passer ou gérer vos annonces vous devez être membre inscrit connecté').' <br /><a class="btn btn-outline-primary mt-2" href="user.php">Connexion</a></p>
       </div>';
 echo '
    </div>';

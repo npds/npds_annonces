@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2026 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -19,7 +19,7 @@
 
 // For More security
 if (!strstr($PHP_SELF,'admin.php')) { Access_Error(); }
-if (strstr($ModPath,"..") || strstr($ModStart,"..") || stristr($ModPath, "script") || stristr($ModPath, "cookie") || stristr($ModPath, "iframe") || stristr($ModPath, "applet") || stristr($ModPath, "object") || stristr($ModPath, "meta") || stristr($ModStart, "script") || stristr($ModStart, "cookie") || stristr($ModStart, "iframe") || stristr($ModStart, "applet") || stristr($ModStart, "object") || stristr($ModStart, "meta")) {
+if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta')) {
    die();
 }
 // For More security
@@ -28,35 +28,34 @@ $f_meta_nom ='npds_annonces';
 admindroits($aid,$f_meta_nom);
 //<== controle droit
 
-include ("modules/$ModPath/annonce.conf.php");
-include ("modules/$ModPath/lang/annonces-$language.php");
+include 'modules/'.$ModPath.'/annonce.conf.php';
+include 'modules/'.$ModPath.'/lang/annonces-'.$language.'.php';
 settype($action,'string');
 
 if ($editeur)
-   $max=1;
+   $max = 1;
 
-if ($action=="Valider") {
-   settype($id,"integer");
-   settype($id_cat,"integer");
-   settype($Xid_cat,"integer");
-   $tel=addslashes(trim(removeHack($tel)));
-   $tel_2=addslashes(trim(removeHack($tel_2)));
-   $code=trim(removeHack($code));
-   $ville=addslashes(trim(removeHack($ville)));
-   $text=removeHack(stripslashes(FixQuotes($xtext)));
-   $prix=str_replace(',','.',$prix);
-   settype($prix, "double");
+if ($action == 'Valider') {
+   settype($id,'integer');
+   settype($id_cat,'integer');
+   settype($Xid_cat,'integer');
+   $tel = addslashes(trim(removeHack($tel)));
+   $tel_2 = addslashes(trim(removeHack($tel_2)));
+   $code = trim(removeHack($code));
+   $ville = addslashes(trim(removeHack($ville)));
+   $text = removeHack(stripslashes(FixQuotes($xtext)));
+   $prix = str_replace(',','.',$prix);
+   settype($prix, 'double');
 
-   $query="UPDATE ".$NPDS_Prefix."g_annonces SET id_cat='$Xid_cat', tel='$tel', tel_2='$tel_2', code='$code', ville='$ville', date='".time()."', text='$text', en_ligne='1', prix='$prix' WHERE id='$id'";
-   $succes= sql_query($query);
+   $query = "UPDATE ".$NPDS_Prefix."g_annonces SET id_cat='$Xid_cat', tel='$tel', tel_2='$tel_2', code='$code', ville='$ville', date='".time()."', text='$text', en_ligne='1', prix='$prix' WHERE id='$id'";
+   $succes = sql_query($query);
 }
-if ($action=="Supprimer") {
-   settype($id,"integer");
-   $query="DELETE FROM ".$NPDS_Prefix."g_annonces WHERE id='$id'";
-   $succes= sql_query($query);
-   if ($succes) {
-      $succes= sql_query($query);
-   }
+if ($action == 'Supprimer') {
+   settype($id,'integer');
+   $query = "DELETE FROM ".$NPDS_Prefix."g_annonces WHERE id='$id'";
+   $succes = sql_query($query);
+   if ($succes)
+      $succes = sql_query($query);
 }
 
    GraphicAdmin($hlpfile);
@@ -67,32 +66,32 @@ if ($action=="Supprimer") {
       <hr />';
    if (!isset($id_cat_sel)) {
       if(!strstr($id_cat, '|')) {
-         $q ="='$id_cat'";
+         $q = "='$id_cat'";
          settype($id_cat,'integer');
       } else
-         $q =" REGEXP '[[:<:]]".str_replace('|', '[[:>:]]|[[:<:]]',$id_cat)."[[:>:]]'";
+         $q = " REGEXP '[[:<:]]".str_replace('|', '[[:>:]]|[[:<:]]',$id_cat)."[[:>:]]'";
 
-      $id_cat_sel=$id_cat;
-      $select= sql_query("SELECT categorie FROM ".$NPDS_Prefix."g_categories WHERE id_cat$q");
-      list($categorie)= sql_fetch_row($select);
+      $id_cat_sel = $id_cat;
+      $select = sql_query("SELECT categorie FROM ".$NPDS_Prefix."g_categories WHERE id_cat$q");
+      list($categorie) = sql_fetch_row($select);
       echo '
-      <p class="lead">'.ann_translate("Catégorie").' : <span class="">'.stripslashes($categorie).'</span></p>';
+      <p class="lead">'.ann_translate('Catégorie').' : <span class="">'.stripslashes($categorie).'</span></p>';
    }
    if (!isset($min))
-      $min=0;
+      $min = 0;
 
    if (!isset($sel)) {
-      $query_count="SELECT COUNT(*) FROM ".$NPDS_Prefix."g_annonces WHERE id_cat$q";
-      $succes_count= sql_query($query_count);
-      $count= sql_fetch_row($succes_count);
-      $count=$count[0];
-      $sel2="WHERE id_cat$q ORDER BY en_ligne,id DESC LIMIT $min,$max";
+      $query_count = "SELECT COUNT(*) FROM ".$NPDS_Prefix."g_annonces WHERE id_cat$q";
+      $succes_count = sql_query($query_count);
+      $count = sql_fetch_row($succes_count);
+      $count = $count[0];
+      $sel2 = "WHERE id_cat$q ORDER BY en_ligne,id DESC LIMIT $min,$max";
    } else
-      $sel2 = $sel==1 ? "ORDER BY en_ligne,id DESC LIMIT 0,1" : "ORDER BY en_ligne,id DESC LIMIT 0,$sel" ;
+      $sel2 = $sel == 1 ? "ORDER BY en_ligne,id DESC LIMIT 0,1" : "ORDER BY en_ligne,id DESC LIMIT 0,$sel" ;
 
-   $query="SELECT * FROM ".$NPDS_Prefix."g_annonces $sel2";
-   $succes= sql_query($query);
-   while ($values= sql_fetch_assoc($succes)) {
+   $query = "SELECT * FROM ".$NPDS_Prefix."g_annonces $sel2";
+   $succes = sql_query($query);
+   while ($values = sql_fetch_assoc($succes)) {
       $id = $values['id'];
       $id_user = $values['id_user'];
       $id_cat= $values['id_cat'];
@@ -104,17 +103,17 @@ if ($action=="Supprimer") {
       $prix = $values['prix'];
 
 //recup données utilisateur de l'annonce
-      $query_2="SELECT uname, email FROM ".$NPDS_Prefix."users WHERE uid='$id_user'";
-      $succes_2= sql_query($query_2);
-      list ($nom, $mail)= sql_fetch_row($succes_2);
+      $query_2 = "SELECT uname, email FROM ".$NPDS_Prefix."users WHERE uid='$id_user'";
+      $succes_2 = sql_query($query_2);
+      list ($nom, $mail) = sql_fetch_row($succes_2);
       echo '
-      <p class="lead mb-3">'.ann_translate("Annonce").' ID : ['.$id.']';
-      if ($values['en_ligne']=="1")
-         echo '<span class="badge bg-success float-end">'.ann_translate("En ligne").'</span>';
-      elseif ($values['en_ligne']=="0")
-         echo '<span class="badge bg-danger mt-1 float-end">'.ann_translate("En attente").'</span>';
+      <p class="lead mb-3">'.ann_translate('Annonce').' ID : ['.$id.']';
+      if ($values['en_ligne'] == '1')
+         echo '<span class="badge bg-success float-end">'.ann_translate('En ligne').'</span>';
+      elseif ($values['en_ligne'] == '0')
+         echo '<span class="badge bg-danger mt-1 float-end">'.ann_translate('En attente').'</span>';
       else
-         echo '<span class="badge bg-secondary float-end">'.ann_translate("En archive").'</span>';
+         echo '<span class="badge bg-secondary float-end">'.ann_translate('En archive').'</span>';
       echo '</p>';
 
       echo '
@@ -133,58 +132,58 @@ if ($action=="Supprimer") {
             <div class="col-sm-6">
                <div class="form-floating mb-3">
                   <input class="form-control" disabled="disabled" value="'.$nom.'" />
-                  <label for="">'.ann_translate("Nom").'</label>
+                  <label for="">'.ann_translate('Nom').'</label>
                </div>
             </div>
             <div class="col-sm-6">
                <div class="form-floating mb-3">
                   <input class="form-control" disabled="disabled" value="'.$mail.'" />
-                  <label for="">'.ann_translate("Email").'</label>
+                  <label for="">'.ann_translate('Email').'</label>
                </div>
             </div>
             <div class="col-sm-6">
                <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="" name="tel" placeholder="'.$tel.'" value="'.$tel.'" />
-                  <label for="">'.ann_translate("Tél fixe").'</label>
+                  <label for="">'.ann_translate('Tél fixe').'</label>
                </div>
             </div>
             <div class="col-sm-6">
                <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="" name="tel_2" placeholder="'.$tel_2.'" value="'.$tel_2.'" />
-                  <label for="">'.ann_translate("Tél portable").'</label>
+                  <label for="">'.ann_translate('Tél portable').'</label>
                </div>
             </div>
             <div class="col-sm-6">
                <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="" name="code" placeholder="'.$code.'" value="'.$code.'" />
-                  <label for="">'.ann_translate("Code postal").'</label>
+                  <label for="">'.ann_translate('Code postal').'</label>
                </div>
             </div>
             <div class="col-sm-6">
                <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="" name="ville" placeholder="'.$ville.'" value="'.$ville.'">
-                  <label for="">'.ann_translate("Ville").'</label>
+                  <label for="">'.ann_translate('Ville').'</label>
                </div>
             </div>
             <div class="col-sm-6">
                <div class="form-floating mb-3">
                   <select class="form-select" name="Xid_cat">';
 
-      $select= sql_query("SELECT * FROM ".$NPDS_Prefix."g_categories WHERE id_cat2='0' ORDER BY id_cat");
-      while($e= sql_fetch_assoc($select)) {
+      $select = sql_query("SELECT * FROM ".$NPDS_Prefix."g_categories WHERE id_cat2='0' ORDER BY id_cat");
+      while($e = sql_fetch_assoc($select)) {
          echo "<option value='".$e['id_cat']."'";
-         if ($e['id_cat']==$id_cat) echo 'selected="selected"';
+         if ($e['id_cat'] == $id_cat) echo 'selected="selected"';
          echo ">".stripslashes($e['categorie'])."</option>\n";
-         $select2= sql_query("SELECT * FROM ".$NPDS_Prefix."g_categories WHERE id_cat2='".$e['id_cat']."' ORDER BY id_cat");
-         while ($e2= sql_fetch_assoc($select2)) {
+         $select2 = sql_query("SELECT * FROM ".$NPDS_Prefix."g_categories WHERE id_cat2='".$e['id_cat']."' ORDER BY id_cat");
+         while ($e2 = sql_fetch_assoc($select2)) {
             echo "<option value='".$e2['id_cat']."'";
-            if ($e2['id_cat']==$id_cat) echo "selected=\"selected\"";
+            if ($e2['id_cat'] == $id_cat) echo "selected=\"selected\"";
             echo ">&nbsp;&nbsp;&nbsp;".stripslashes($e2['categorie'])."</option>\n";
          }
       }
       echo '
                   </select>
-                  <label for="">'.ann_translate("Catégorie").' <span class="text-danger">*</span></label>
+                  <label for="">'.ann_translate('Catégorie').' <span class="text-danger">*</span></label>
                </div>
             </div>';
       if ($aff_prix)
@@ -192,7 +191,7 @@ if ($action=="Supprimer") {
             <div class="col-sm-6">
                <div class="form-floating mb-3">
                   <input type="text" name="prix" class="form-control" id="" value="'.$prix.'" placeholder="'.$prix.'">
-                  <label for="" required="required">'.ann_translate("Prix en").' '.aff_langue($prix_cur).' <span class="text-danger">*</span></label>
+                  <label for="" required="required">'.ann_translate('Prix en').' '.aff_langue($prix_cur).' <span class="text-danger">*</span></label>
                </div>
             </div>';
       else
@@ -205,30 +204,29 @@ if ($action=="Supprimer") {
                <label for="" class="form-label">'.ann_translate("Libellé de l'annonce").' <span class="text-danger">*</span></label>
                <textarea name="xtext" class="tin form-control" rows="50">'.$text.'</textarea>';
       if ($editeur)
-         echo aff_editeur("xtext", "true");
+         echo aff_editeur('xtext', 'true');
       echo '
             </div>
             </div>
-         <button class="btn btn-primary my-2 me-3" type="submit" name="action" value="Valider">'.ann_translate("Valider").'</button>
-         <button class="btn btn-danger my-2" type="submit" name="action" value="Supprimer">'.ann_translate("Supprimer").'</button>
+         <button class="btn btn-primary my-2 me-3" type="submit" name="action" value="Valider">'.ann_translate('Valider').'</button>
+         <button class="btn btn-danger my-2" type="submit" name="action" value="Supprimer">'.ann_translate('Supprimer').'</button>
       </form>';
    }
 
-   $pp=false;
+   $pp = false;
    if (!isset($sel)) {
    echo '
    <hr />
    <nav aria-label="">
      <ul class="pagination pagination-lg justify-content-end">';
-      if ($min>0) {
+      if ($min > 0) {
          echo '
-         <li class="page-item"><a class="page-link" href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart=admin/adm_ann&amp;id_cat='.$id_cat_sel.'&amp;min='.($min-$max).'"><i class="fa fa-angle-double-left mx-2"></i><span class="hidden-sm-down">'.ann_translate("Précédente").'</span></span></a></li>';
-         $pp=true;
+         <li class="page-item"><a class="page-link" href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart=admin/adm_ann&amp;id_cat='.$id_cat_sel.'&amp;min='.($min-$max).'"><i class="fa fa-angle-double-left mx-2"></i><span class="hidden-sm-down">'.ann_translate('Précédente').'</span></span></a></li>';
+         $pp = true;
       }
-      if (($min+$max)<$count) {
+      if (($min + $max) < $count)
          echo '
-         <li class="page-item"><a class="page-link" href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart=admin/adm_ann&amp;id_cat='.$id_cat_sel.'&amp;min='.($min+$max).'"><span class="hidden-sm-down">'.ann_translate("Suivante").' </span><i class="fa fa-angle-double-right mx-2"></i></a></li>';
-      }
+         <li class="page-item"><a class="page-link" href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart=admin/adm_ann&amp;id_cat='.$id_cat_sel.'&amp;min='.($min+$max).'"><span class="hidden-sm-down">'.ann_translate('Suivante').' </span><i class="fa fa-angle-double-right mx-2"></i></a></li>';
    echo '
       </ul>
    </nav>';
@@ -264,7 +262,7 @@ if ($action=="Supprimer") {
       },';
 
    if ($editeur) {
-   $arg1 .='
+   $arg1 .= '
    const fv = FormValidation.formValidation(document.getElementById(formulid), {
       fields: {
          '.$tinyfield.': {
@@ -302,7 +300,7 @@ if ($action=="Supprimer") {
       },
    });';
    } else {
-      $fv_parametres .='
+      $fv_parametres .= '
       '.$tinyfield.': {
          validators: {
             notEmpty: {

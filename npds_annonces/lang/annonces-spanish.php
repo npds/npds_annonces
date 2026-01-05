@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Module npds_annonces 3.1                                             */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2026 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -92,7 +92,7 @@ function ann_translate($phrase) {
    case "Valider" : $tmp = "Validar"; break;
    case "Ville" : $tmp = "Ciudad"; break;
    case "vous avez" : $tmp = "usted tiene que"; break;
-  
+
    default: $tmp = "Necesita una traducción [** $phrase **]"; break;
  }
   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,'UTF-8'));

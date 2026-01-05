@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2026 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -19,7 +19,7 @@
 
 function aff_annonces($select) {
    global $ModPath, $aff_prix, $prix_cur,$obsol;
-   $j=0;
+   $j = 0;
    echo '
    <script type="text/javascript" src="lib/flatpickr/dist/flatpickr.min.js"></script>
    <script type="text/javascript" src="lib/flatpickr/dist/l10n/'.language_iso(1,'','').'.js"></script>
@@ -31,67 +31,67 @@ function aff_annonces($select) {
       //]]>
    </script>';
 
-   while ($i=sql_fetch_array($select)) {
-      $id_user=$i['id_user'];
-      $tel=stripslashes($i['tel']);
-      $tel_2=stripslashes($i['tel_2']);
-      $code=$i['code'];
-      $ville=stripslashes($i['ville']);
-      $date=$i['date'];
-      $dateend=date('d-m-Y',$date+($obsol*30*86400));
-      $date=date("d-m-Y",$date);
-      $text=removehack(stripslashes($i['text']));
-      $prix=$i['prix'];
+   while ($i = sql_fetch_array($select)) {
+      $id_user = $i['id_user'];
+      $tel = stripslashes($i['tel']);
+      $tel_2 = stripslashes($i['tel_2']);
+      $code = $i['code'];
+      $ville = stripslashes($i['ville']);
+      $date = $i['date'];
+      $dateend = date('d-m-Y',$date + ($obsol * 30 * 86400));
+      $date = date('d-m-Y',$date);
+      $text = removehack(stripslashes($i['text']));
+      $prix = $i['prix'];
 
       //recup des données utilisateur utiles pour l'affichage
-      settype ($id_user,"integer");
+      settype ($id_user,'integer');
       $result = sql_query("SELECT uname, email FROM users WHERE uid='$id_user'");
-      list($nom, $mail)= sql_fetch_row($result);
+      list($nom, $mail) = sql_fetch_row($result);
 
-      $ibid='
+      $ibid = '
       <div class="card my-3">
          <div class="card-body">
             <h4>'.ann_translate("Annonce de").' '.$nom.' '.userpopover($nom,'48').' <span id="validdate'.$j.'" class="float-end">'.$date.'</span></h4>
             <hr />
             <div class="card-text">';
       if ($aff_prix)
-         $ibid.='
+         $ibid .= '
                <div class="text-end h3">
                   <span class=" badge bg-success heading1">'.$prix.' '.aff_langue($prix_cur).'</span>
                </div>';
-      $ibid.='
+      $ibid .= '
             </div>
             <div class="card-text mt-3">
                '.$text.'
             </div>
             <div class="card-text row">';
       if ($ville)
-         $ibid.='
-               <div class="col-md-12"><strong>'.ann_translate("Ville").'</strong> : '.$ville.'</div>';
+         $ibid .= '
+               <div class="col-md-12"><strong>'.ann_translate('Ville').'</strong> : '.$ville.'</div>';
       if ($code)
-         $ibid.='
-               <div class="col-md-12"><strong>'.ann_translate("Code postal").'</strong> : '.$code.'</div>';
-      $ibid.='
+         $ibid .= '
+               <div class="col-md-12"><strong>'.ann_translate('Code postal').'</strong> : '.$code.'</div>';
+      $ibid .= '
             </div>';
-      $ibid.="<p>##imp##</p>";
-      $ibid.='
+      $ibid .= "<p>##imp##</p>";
+      $ibid .= '
          </div>
       </div>';
 
-      $ibid2='
+      $ibid2 = '
       <hr />
       <form method="post" action="modules.php" class="text-end">
          <input type="hidden" name="ModPath" value="'.$ModPath.'" />
          <input type="hidden" name="ModStart" value="print" />
          <input type="hidden" name="text" value="'.rawurlencode(str_replace("##imp##","",$ibid)).'" />
          <a class="btn btn-primary me-2" href="mailto:'.anti_spam($mail).'"><i class="fa fa-at fa-lg" aria-hidden="true"></i></a>';
-      if ($tel!='')
-         $ibid2.='
+      if ($tel != '')
+         $ibid2 .= '
          <span class="me-2"><i class="fa fa-phone fa-2x align-middle" aria-hidden="true"></i> <a data-rel="external" href="tel:+33'.$tel.'" target="_blank">+33'.$tel.'</a></span>';
-      if ($tel_2!='')
-         $ibid2.='
+      if ($tel_2 != '')
+         $ibid2 .= '
          <span class="me-2"><i class="fa fa-mobile fa-2x align-middle" aria-hidden="true"></i> <a data-rel="external" href="tel:+33'.$tel_2.'" target="_blank">+33'.$tel_2.'</a></span>';
-      $ibid2.='
+      $ibid2 .= '
          <button class="btn btn-primary" type="image" name="image"><i class="fa fa-print fa-lg"></i></button>
       </form>
       <script type="text/javascript">

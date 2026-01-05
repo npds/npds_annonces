@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2026 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -19,7 +19,7 @@
 
 
 ----------------------------------------------------------------------
-Support sur http://modules.npds.org
+Support sur https://www.npds.org
 ----------------------------------------------------------------------
 
 Module simple de petites annonces interfacé et complètement intégré au portail NPDS.

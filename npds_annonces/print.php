@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2026 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -23,29 +23,27 @@ if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script
    die();
 // For More security
 global $title;
-if (!function_exists("Mysql_Connexion")) include ("mainfile.php");
+if (!function_exists('Mysql_Connexion')) include 'mainfile.php';
 
-include ("modules/$ModPath/annonce.conf.php");
+include 'modules/'.$ModPath.'/annonce.conf.php';
 
-   global $user,$cookie, $theme,$Default_Theme, $language, $site_logo, $sitename, $datetime, $nuke_url, $site_font;
+   global $user, $cookie, $theme, $Default_Theme, $language, $site_logo, $sitename, $datetime, $nuke_url;
 //   formatTimestamp($time);
-   include("meta/meta.php");
+   include 'meta/meta.php';
    echo "<title>$sitename</title>";
    if (isset($user)) {
-      if ($cookie[9]=='') $cookie[9]=$Default_Theme;
-      if (isset($theme)) $cookie[9]=$theme;
-      $tmp_theme=$cookie[9];
-      if (!$file=@opendir("themes/$cookie[9]")) {
-         $tmp_theme=$Default_Theme;
-      }
-   } else {
-      $tmp_theme=$Default_Theme;
-   }  
-       echo '
+      if ($cookie[9] == '') $cookie[9] = $Default_Theme;
+      if (isset($theme)) $cookie[9] = $theme;
+      $tmp_theme = $cookie[9];
+      if (!$file = @opendir("themes/$cookie[9]"))
+         $tmp_theme = $Default_Theme;
+   } else 
+      $tmp_theme = $Default_Theme;
+   echo '
       <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
       <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />';
-       echo import_css($tmp_theme, $language, $site_font, '','');
-       echo '
+       echo import_css($tmp_theme, $language, '', '','');
+   echo '
       </head>
       <body>
          <div max-width="640" class="container p-1 n-hyphenate">
@@ -56,7 +54,7 @@ include ("modules/$ModPath/annonce.conf.php");
        else
           echo '<img class="img-fluid d-block mx-auto" src="images/'.$site_logo.'" alt="website logo" />';
           echo '<h1 class="d-block text-center my-4">'.aff_langue($title).'</h1>';
-   $remp=rawurldecode(removehack($text));
+   $remp = rawurldecode(removehack($text));
    echo '
                <div>'.$remp.'</div>
             </div>

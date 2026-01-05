@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2026 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -28,10 +28,10 @@ $name_module = "npds_annonces";
 $path_adm_module = 'admin/adm';
 
 #autodoc $affich: pour l'affichage du nom du module dans l'admin
-$affich='npds_annonces';
+$affich = 'npds_annonces';
 
 #autodoc $icon: icon pour l'admin : c'est un nom de fichier(sans extension) !! #required SI admin avec interface
-$icon='npds_annonces';
+$icon = 'npds_annonces';
 
 #autodoc $list_fich : Modifications de fichiers: Dans le premier tableau, tapez le nom du fichier
 #autodoc et dans le deuxième, A LA MEME POSITION D'INDEX QUE LE PREMIER, tapez le code à insérer dans le fichier.

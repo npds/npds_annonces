@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2026 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -23,71 +23,68 @@ if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script
    die();
 // For More security
 
-include ("modules/$ModPath/annonce.conf.php");
-include ("modules/$ModPath/lang/annonces-$language.php");
-include ("header.php");
+include 'modules/'.$ModPath.'/annonce.conf.php';
+include 'modules/'.$ModPath.'/lang/annonces-'.$language.'.php';
+include 'header.php';
 echo 
 aff_langue($mess_acc);
-include ("modules/$ModPath/include/search_form.php");
-   include ("modules/$ModPath/include/annonce.php");
-   $search=removeHack(stripslashes(htmlentities(urldecode($search), ENT_NOQUOTES))); // electrobug
-   $search = trim($search);
-   $search = str_replace('+', ' ', $search);
-   $search = str_replace('\'', ' ', $search);
-   $search = str_replace(',', ' ', $search);
-   $search = str_replace(':', ' ', $search);
-   $search = strtoupper($search);
-   $search = explode(' ',$search);
-   $tot=count($search);
-   $query= "SELECT COUNT(*) FROM ".$NPDS_Prefix."g_annonces WHERE UPPER(text) LIKE '%$search[0]%'";
-   for ($i=1; $i<$tot; $i++) {
-      $query.=" OR TEXT LIKE '%$search[$i]%'";
-   }
-   $query.=" AND en_ligne='1'";
-   $res = sql_query($query);
-   $count = sql_fetch_row($res);
-   $nombre=$count[0];
+include 'modules/'.$ModPath.'/include/search_form.php';
+include 'modules/'.$ModPath.'/include/annonce.php';
+$search = removeHack(stripslashes(htmlentities(urldecode($search), ENT_NOQUOTES))); // electrobug
+$search = trim($search);
+$search = str_replace('+', ' ', $search);
+$search = str_replace('\'', ' ', $search);
+$search = str_replace(',', ' ', $search);
+$search = str_replace(':', ' ', $search);
+$search = strtoupper($search);
+$search = explode(' ',$search);
+$tot = count($search);
+$query = "SELECT COUNT(*) FROM ".$NPDS_Prefix."g_annonces WHERE UPPER(text) LIKE '%$search[0]%'";
+for ($i = 1; $i < $tot; $i++) {
+   $query .= " OR TEXT LIKE '%$search[$i]%'";
+}
+$query .= " AND en_ligne='1'";
+$res = sql_query($query);
+$count = sql_fetch_row($res);
+$nombre = $count[0];
 
-   if (!isset($min))
-      $min=0;
-   if ($nombre==0)
-      echo '<div class="alert alert-danger">'.aff_langue($mess_no_result).'</div>';
-   else {
-      $inf=$min+1;
-      if (($min+$max)>=$nombre)
-         $sup=$nombre;
-      else
-         $sup=$min+$max;
-      echo '<p class="lead"><i class="fa fa-circle" aria-hidden="true"></i> Annonces <span class="badge bg-primary">'.$inf.' à '.$sup.'</span> sur <span class="badge bg-secondary">'.$nombre.'</span> correspondant à votre recherche</p>';
-   }
+if (!isset($min))
+   $min = 0;
+if ($nombre == 0)
+   echo '<div class="alert alert-danger">'.aff_langue($mess_no_result).'</div>';
+else {
+   $inf = $min + 1;
+   if (($min + $max) >= $nombre)
+      $sup = $nombre;
+   else
+      $sup = $min + $max;
+   echo '<p class="lead"><i class="fa fa-circle" aria-hidden="true"></i> Annonces <span class="badge bg-primary">'.$inf.' à '.$sup.'</span> sur <span class="badge bg-secondary">'.$nombre.'</span> correspondant à votre recherche</p>';
+}
 
-   $query="SELECT * FROM ".$NPDS_Prefix."g_annonces WHERE UPPER(text) LIKE '%$search[0]%'";
-   for ($i=1; $i<$tot; $i++) {
-      $query.=" OR TEXT LIKE '%$search[$i]%'";
-   }
-   $query .=" AND en_ligne='1' ORDER BY id DESC LIMIT $min,$max";
-   $select = sql_query($query);
-   aff_annonces($select);
-
-   $search = implode('+',$search);
-
-   $pp=false;
-
-    echo '
+$query = "SELECT * FROM ".$NPDS_Prefix."g_annonces WHERE UPPER(text) LIKE '%$search[0]%'";
+for ($i = 1; $i < $tot; $i++) {
+   $query.=" OR TEXT LIKE '%$search[$i]%'";
+}
+$query .= " AND en_ligne='1' ORDER BY id DESC LIMIT $min,$max";
+$select = sql_query($query);
+aff_annonces($select);
+$search = implode('+',$search);
+$pp = false;
+echo '
          <ul class="pagination pagination-sm">
-            <li class="page-item disabled"><a class="page-link" href="#" aria-label="Annonces(s)">'.$nombre.' '.ann_translate("Annonces(s)").'</a></li>';
-            if($nombre>0) echo '
+            <li class="page-item disabled"><a class="page-link" href="#" aria-label="Annonces(s)">'.$nombre.' '.ann_translate('Annonces(s)').'</a></li>';
+if($nombre > 0) echo '
             <li class="page-item active"><a class="page-link" href="#">'.$inf.' à '.$sup.'</a></li>';
-   if ($min>0) {
-      echo '<li class="page-item"><a class="page-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=search&amp;min='.($min-$max).'&amp;search='.$search.'">'.ann_translate("Précédente").'</a></li>';
-      $pp=true;
-   }
-   if (($min+$max)<$nombre)
-      echo '
-            <li class="page-item"><a class="page-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=search&amp;min='.($min+$max).'&amp;search='.$search.'">'.ann_translate("Suivante").'</a></li>';
-    echo '
+if ($min > 0) {
+   echo '<li class="page-item"><a class="page-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=search&amp;min='.($min-$max).'&amp;search='.$search.'">'.ann_translate('Précédente').'</a></li>';
+   $pp = true;
+}
+if (($min + $max) < $nombre)
+   echo '
+            <li class="page-item"><a class="page-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=search&amp;min='.($min+$max).'&amp;search='.$search.'">'.ann_translate('Suivante').'</a></li>';
+echo '
          </ul>
-      <p><a class="btn btn-primary btn-sm" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=index"><i class="fa fa-home" aria-hidden="true"></i> '.ann_translate("Retour").'</a></p>
+      <p><a class="btn btn-primary btn-sm" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=index"><i class="fa fa-home" aria-hidden="true"></i> '.ann_translate('Retour').'</a></p>
 ';
-include ("footer.php");
+include 'footer.php';
 ?>
